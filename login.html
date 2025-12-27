@@ -361,9 +361,11 @@
  async function submitForm(formId) {
   const form = document.getElementById(formId);
   const data = Object.fromEntries(new FormData(form));
+     const API_URL = "https://bhavesh-backend.onrender.com";
 
   if (formId === "signupForm") {
-    const res = await fetch("http://localhost:5000/api/signup", {
+    const res = await fetch(`${API_URL}/api/signup`, {
+
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data)
@@ -373,7 +375,7 @@
   }
 
   if (formId === "loginForm") {
-    const res = await fetch("http://localhost:5000/api/login", {
+    const res = await fetch(`${API_URL}/api/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data)
