@@ -1,0 +1,285 @@
+<!-- notes.html - Notes/Downloads Page -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Notes - CodeLearn</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-wrapper">
+                <div class="nav-wrapper">
+                    <a href="index.html" class="logo">
+                        <i class="fas fa-code"></i> BhaveshRao
+                    </a>
+
+                </div>
+                <button class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="courses.html">Courses</a></li>
+                    <li><a href="tutorials.html">Tutorials</a></li>
+                    <li><a href="notes.html" class="active">Notes</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><button id="theme-toggle" class="theme-toggle" title="Toggle Theme"><i class="fas fa-moon"></i></button></li>
+                    <li><a href="login.html" class="btn-login">Login</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Study Notes & Cheat Sheets</h1>
+            <p>Download PDF notes for offline learning</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="page-content">
+        <div class="container">
+            <div class="search-filter">
+                <input type="text" id="searchInput" placeholder="Search notes..." onkeyup="searchCourses()">
+                <select onchange="filterByCategory(this.value)">
+                    <option value="all">All Categories</option>
+                    <option value="web">Web Development</option>
+                    <option value="python">Python</option>
+                    <option value="c">C Programming</option>
+                    <option value="java">Java</option>
+                </select>
+            </div>
+
+            <div class="grid">
+                <!-- HTML Notes -->
+                <div class="course-card" data-category="web">
+                    <div class="card-image">
+                        <i class="fas fa-file-pdf"></i>
+                    </div>
+                    <div class="card-body">
+                        <h3>HTML Complete Cheat Sheet</h3>
+                        <div class="card-meta">
+                            <span class="badge">PDF</span>
+                            <span class="badge">15 Pages</span>
+                        </div>
+                        <p>Complete HTML tags reference, attributes, and best practices.</p>
+                        <button class="btn btn-primary btn-small" onclick="downloadNote('HTML-Cheat-Sheet.pdf')" style="width: 100%; margin-top: 1rem;">
+                            <i class="fas fa-download"></i> Download
+                        </button>
+                    </div>
+                </div>
+
+                <!-- CSS Notes -->
+                <div class="course-card" data-category="web">
+                    <div class="card-image">
+                        <i class="fas fa-file-pdf"></i>
+                    </div>
+                    <div class="card-body">
+                        <h3>CSS Properties Reference</h3>
+                        <div class="card-meta">
+                            <span class="badge">PDF</span>
+                            <span class="badge">20 Pages</span>
+                        </div>
+                        <p>CSS selectors, properties, flexbox, grid, and responsive design tips.</p>
+                        <button class="btn btn-primary btn-small" onclick="downloadNote('CSS-Properties.pdf')" style="width: 100%; margin-top: 1rem;">
+                            <i class="fas fa-download"></i> Download
+                        </button>
+                    </div>
+                </div>
+
+                <!-- JavaScript Notes -->
+                <div class="course-card" data-category="web">
+                    <div class="card-image">
+                        <i class="fas fa-file-pdf"></i>
+                    </div>
+                    <div class="card-body">
+                        <h3>JavaScript Quick Reference</h3>
+                        <div class="card-meta">
+                            <span class="badge">PDF</span>
+                            <span class="badge">25 Pages</span>
+                        </div>
+                        <p>Variables, functions, objects, arrays, and ES6 features.</p>
+                        <button class="btn btn-primary btn-small" onclick="downloadNote('JavaScript-Reference.pdf')" style="width: 100%; margin-top: 1rem;">
+                            <i class="fas fa-download"></i> Download
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Python Notes -->
+                <div class="course-card" data-category="python">
+                    <div class="card-image">
+                        <i class="fas fa-file-pdf"></i>
+                    </div>
+                    <div class="card-body">
+                        <h3>Python Complete Guide</h3>
+                        <div class="card-meta">
+                            <span class="badge">PDF</span>
+                            <span class="badge">30 Pages</span>
+                        </div>
+                        <p>Python syntax, data types, functions, OOP, and libraries.</p>
+                        <button class="btn btn-primary btn-small" onclick="downloadNote('Python-Guide.pdf')" style="width: 100%; margin-top: 1rem;">
+                            <i class="fas fa-download"></i> Download
+                        </button>
+                    </div>
+                </div>
+
+                <!-- C Programming Notes -->
+                <div class="course-card" data-category="c">
+                    <div class="card-image">
+                        <i class="fas fa-file-pdf"></i>
+                    </div>
+                    <div class="card-body">
+                        <h3>C Programming Fundamentals</h3>
+                        <div class="card-meta">
+                            <span class="badge">PDF</span>
+                            <span class="badge">22 Pages</span>
+                        </div>
+                        <p>C syntax, pointers, arrays, structures, and memory management.</p>
+                        <button class="btn btn-primary btn-small" onclick="downloadNote('C-Programming.pdf')" style="width: 100%; margin-top: 1rem;">
+                            <i class="fas fa-download"></i> Download
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Java Notes -->
+                <div class="course-card" data-category="java">
+                    <div class="card-image">
+                        <i class="fas fa-file-pdf"></i>
+                    </div>
+                    <div class="card-body">
+                        <h3>Java OOP Concepts</h3>
+                        <div class="card-meta">
+                            <span class="badge">PDF</span>
+                            <span class="badge">28 Pages</span>
+                        </div>
+                        <p>Classes, inheritance, polymorphism, interfaces, and design patterns.</p>
+                        <button class="btn btn-primary btn-small" onclick="downloadNote('Java-OOP.pdf')" style="width: 100%; margin-top: 1rem;">
+                            <i class="fas fa-download"></i> Download
+                        </button>
+                    </div>
+                </div>
+
+                <!-- SQL Notes -->
+                <div class="course-card" data-category="database">
+                    <div class="card-image">
+                        <i class="fas fa-file-pdf"></i>
+                    </div>
+                    <div class="card-body">
+                        <h3>SQL Queries Cheat Sheet</h3>
+                        <div class="card-meta">
+                            <span class="badge">PDF</span>
+                            <span class="badge">18 Pages</span>
+                        </div>
+                        <p>SELECT, INSERT, UPDATE, JOIN queries and database design.</p>
+                        <button class="btn btn-primary btn-small" onclick="downloadNote('SQL-CheatSheet.pdf')" style="width: 100%; margin-top: 1rem;">
+                            <i class="fas fa-download"></i> Download
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Git Notes -->
+                <div class="course-card" data-category="tools">
+                    <div class="card-image">
+                        <i class="fas fa-file-pdf"></i>
+                    </div>
+                    <div class="card-body">
+                        <h3>Git & GitHub Guide</h3>
+                        <div class="card-meta">
+                            <span class="badge">PDF</span>
+                            <span class="badge">12 Pages</span>
+                        </div>
+                        <p>Git commands, version control, and GitHub workflow.</p>
+                        <button class="btn btn-primary btn-small" onclick="downloadNote('Git-GitHub.pdf')" style="width: 100%; margin-top: 1rem;">
+                            <i class="fas fa-download"></i> Download
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>CodeLearn</h4>
+                    <p>Empowering the next generation of programmers worldwide.</p>
+                    <div class="social-icons">
+                        <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
+                        <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" title="GitHub"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="courses.html">Courses</a></li>
+                        <li><a href="tutorials.html">Tutorials</a></li>
+                        <li><a href="notes.html">Notes</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="contact.html">Support</a></li>
+                        <li><a href="#">Community</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Refund Policy</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 CodeLearn. All rights reserved. | Built with ❤️ for learners</p>
+            </div>
+        </div>
+    </footer>
+<script>
+  if (!localStorage.getItem("user")) {
+    window.location.href = "login.html";
+  }
+</script>
+
+    <script src="script.js"></script>
+    <script>
+  const user = localStorage.getItem("user");
+
+  const navMenu = document.getElementById("navMenu");
+  const loginBtn = document.querySelector(".btn-login");
+
+  if (user) {
+    // Change Login → Profile
+    if (loginBtn) {
+      loginBtn.textContent = user;
+      loginBtn.href = "profile.html";
+    }
+  }
+</script>
+
+</body>
+</html>

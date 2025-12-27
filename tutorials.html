@@ -1,0 +1,286 @@
+<!-- tutorials.html - Tutorials Page -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Tutorials - CodeLearn</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-wrapper">
+              <div class="nav-wrapper">
+                    <a href="index.html" class="logo">
+                        <i class="fas fa-code"></i> BhaveshRao
+                    </a>
+
+                </div>
+                <button class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="courses.html">Courses</a></li>
+                    <li><a href="tutorials.html" class="active">Tutorials</a></li>
+                    <li><a href="notes.html">Notes</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><button id="theme-toggle" class="theme-toggle" title="Toggle Theme"><i class="fas fa-moon"></i></button></li>
+                    <li><a href="login.html" class="btn-login">Login</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Free Tutorials</h1>
+            <p>Learn programming with our comprehensive free tutorials</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="page-content">
+        <div class="container">
+            <div class="sidebar-layout">
+                <!-- Sidebar -->
+                <div class="sidebar">
+                    <h3>Programming Languages</h3>
+                    <ul>
+                        <li><a href="javascript:loadTutorial('html', 'introduction')">HTML Introduction</a></li>
+                        <li><a href="javascript:loadTutorial('html', 'tags')">HTML Tags</a></li>
+                        <li><a href="javascript:loadTutorial('html', 'forms')">HTML Forms</a></li>
+                        <li><a href="javascript:loadTutorial('html', 'semantics')">HTML5 Semantics</a></li>
+                    </ul>
+
+                    <h3>Web Technologies</h3>
+                    <ul>
+                        <li><a href="javascript:loadTutorial('css', 'introduction')">CSS Basics</a></li>
+                        <li><a href="javascript:loadTutorial('css', 'selectors')">CSS Selectors</a></li>
+                        <li><a href="javascript:loadTutorial('css', 'layout')">CSS Flexbox & Grid</a></li>
+                        <li><a href="javascript:loadTutorial('css', 'responsive')">Responsive Design</a></li>
+                    </ul>
+
+                    <h3>JavaScript</h3>
+                    <ul>
+                        <li><a href="javascript:loadTutorial('javascript', 'introduction')">JS Basics</a></li>
+                        <li><a href="javascript:loadTutorial('javascript', 'dom')">DOM Manipulation</a></li>
+                        <li><a href="javascript:loadTutorial('javascript', 'async')">Async & Promises</a></li>
+                        <li><a href="javascript:loadTutorial('javascript', 'es6')">ES6 Features</a></li>
+                    </ul>
+
+                    <h3>Backend Programming</h3>
+                    <ul>
+                        <li><a href="javascript:loadTutorial('python', 'intro')">Python Basics</a></li>
+                        <li><a href="javascript:loadTutorial('python', 'oop')">Python OOP</a></li>
+                        <li><a href="javascript:loadTutorial('c', 'intro')">C Programming</a></li>
+                        <li><a href="javascript:loadTutorial('java', 'intro')">Java Basics</a></li>
+                    </ul>
+
+                    <h3>Databases</h3>
+                    <ul>
+                        <li><a href="javascript:loadTutorial('sql', 'intro')">SQL Basics</a></li>
+                        <li><a href="javascript:loadTutorial('sql', 'joins')">SQL Joins</a></li>
+                        <li><a href="javascript:loadTutorial('nosql', 'mongo')">MongoDB</a></li>
+                    </ul>
+                </div>
+
+                <!-- Main Content -->
+                <div class="main-content">
+                    <div class="lesson-content">
+                        <h2>Welcome to CodeLearn Tutorials</h2>
+                        <p>Select a tutorial from the sidebar to begin learning. Our free tutorials cover everything from HTML basics to advanced JavaScript patterns.</p>
+                        
+                        <h3>Featured Topics:</h3>
+                        <div class="grid" style="margin-top: 2rem;">
+                            <div class="tutorial-card">
+                                <div class="card-image">
+                                    <i class="fas fa-code"></i>
+                                </div>
+                                <div class="card-body">
+                                    <h3>HTML Fundamentals</h3>
+                                    <p>Learn the building blocks of web pages with HTML tags and structure.</p>
+                                    <button class="btn btn-primary btn-small" onclick="loadTutorial('html', 'introduction')">Start Tutorial</button>
+                                </div>
+                            </div>
+
+                            <div class="tutorial-card">
+                                <div class="card-image">
+                                    <i class="fas fa-palette"></i>
+                                </div>
+                                <div class="card-body">
+                                    <h3>CSS Styling</h3>
+                                    <p>Master CSS to style and layout your web pages beautifully.</p>
+                                    <button class="btn btn-primary btn-small" onclick="loadTutorial('css', 'introduction')">Start Tutorial</button>
+                                </div>
+                            </div>
+
+                            <div class="tutorial-card">
+                                <div class="card-image">
+                                    <i class="fab fa-js"></i>
+                                </div>
+                                <div class="card-body">
+                                    <h3>JavaScript Interactivity</h3>
+                                    <p>Add dynamic behavior to your web pages with JavaScript.</p>
+                                    <button class="btn btn-primary btn-small" onclick="loadTutorial('javascript', 'introduction')">Start Tutorial</button>
+                                </div>
+                            </div>
+
+                            <div class="tutorial-card">
+                                <div class="card-image">
+                                    <i class="fab fa-python"></i>
+                                </div>
+                                <div class="card-body">
+                                    <h3>Python Programming</h3>
+                                    <p>Learn Python, one of the most popular programming languages.</p>
+                                    <button class="btn btn-primary btn-small" onclick="loadTutorial('python', 'intro')">Start Tutorial</button>
+                                </div>
+                            </div>
+
+                            <div class="tutorial-card">
+                                <div class="card-image">
+                                    <i class="fas fa-code"></i>
+                                </div>
+                                <div class="card-body">
+                                    <h3>C Programming</h3>
+                                    <p>Master the fundamentals with C programming language.</p>
+                                    <button class="btn btn-primary btn-small" onclick="loadTutorial('c', 'intro')">Start Tutorial</button>
+                                </div>
+                            </div>
+
+                            <div class="tutorial-card">
+                                <div class="card-image">
+                                    <i class="fas fa-database"></i>
+                                </div>
+                                <div class="card-body">
+                                    <h3>SQL Databases</h3>
+                                    <p>Learn SQL for database management and queries.</p>
+                                    <button class="btn btn-primary btn-small" onclick="loadTutorial('sql', 'intro')">Start Tutorial</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3 style="margin-top: 3rem;">Why Learn with CodeLearn?</h3>
+                        <ul style="margin-top: 1rem; margin-left: 2rem;">
+                            <li><strong>100% Free:</strong> All tutorials are completely free of charge</li>
+                            <li><strong>Self-Paced:</strong> Learn at your own pace, anytime, anywhere</li>
+                            <li><strong>Structured Content:</strong> Well-organized lessons from basics to advanced</li>
+                            <li><strong>Practical Examples:</strong> Real-world code examples you can try immediately</li>
+                            <li><strong>Community Support:</strong> Join thousands of learners in our community</li>
+                            <li><strong>No Prerequisites:</strong> Perfect for beginners with no coding experience</li>
+                        </ul>
+
+                        <h3 style="margin-top: 2rem;">Learning Path Recommendation</h3>
+                        <p>For beginners, we recommend this learning path:</p>
+                        <ol style="margin-left: 2rem;">
+                            <li>Start with <strong>HTML Fundamentals</strong> - understand web page structure</li>
+                            <li>Move to <strong>CSS Styling</strong> - make your pages look great</li>
+                            <li>Learn <strong>JavaScript Basics</strong> - add interactivity</li>
+                            <li>Explore <strong>Backend Languages</strong> - Python or Java</li>
+                            <li>Study <strong>Databases</strong> - manage data effectively</li>
+                        </ol>
+
+                        <!-- Navigation -->
+                        <div class="lesson-navigation" style="margin-top: 3rem;">
+                            <button class="btn btn-secondary">← Previous Lesson</button>
+                            <button class="btn btn-primary">Next Lesson →</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready for Premium Courses?</h2>
+            <p>After mastering the basics, upgrade to our premium courses for advanced topics and certifications</p>
+            <button class="btn btn-primary btn-large" onclick="window.location.href='courses.html'">
+                Explore Premium Courses
+            </button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>CodeLearn</h4>
+                    <p>Empowering the next generation of programmers worldwide.</p>
+                    <div class="social-icons">
+                        <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
+                        <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" title="GitHub"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="courses.html">Courses</a></li>
+                        <li><a href="tutorials.html">Tutorials</a></li>
+                        <li><a href="notes.html">Notes</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="contact.html">Support</a></li>
+                        <li><a href="#">Community</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Refund Policy</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 CodeLearn. All rights reserved. | Built with ❤️ for learners</p>
+            </div>
+        </div>
+    </footer>
+<script>
+  if (!localStorage.getItem("user")) {
+    window.location.href = "login.html";
+  }
+</script>
+
+    <script src="script.js"></script>
+    <script>
+  const user = localStorage.getItem("user");
+
+  const navMenu = document.getElementById("navMenu");
+  const loginBtn = document.querySelector(".btn-login");
+
+  if (user) {
+    // Change Login → Profile
+    if (loginBtn) {
+      loginBtn.textContent = user;
+      loginBtn.href = "profile.html";
+    }
+  }
+</script>
+
+</body>
+</html>

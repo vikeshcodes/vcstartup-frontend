@@ -1,0 +1,294 @@
+<!-- index.html - Homepage -->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>CodeLearn - Learn Programming From Basics</title>
+        <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    </head>
+    <body>
+        <!-- Navigation Bar -->
+        <nav class="navbar">
+            <div class="container">
+                <div class="nav-wrapper">
+                    <a href="index.html" class="logo">
+                        <i class="fas fa-code"></i> BhaveshRao
+                    </a>
+
+                </div>
+                <button class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="index.html" class="active">Home</a></li>
+                    <li><a href="courses.html">Courses</a></li>
+                    <li><a href="tutorials.html">Tutorials</a></li>
+                    <li><a href="notes.html">Notes</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><button id="theme-toggle" class="theme-toggle" title="Toggle Theme"><i class="fas fa-moon"></i></button></li>
+                    <li><a href="login.html" class="btn-login">Login</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Learn Programming From Zero to Hero</h1>
+                <p>Master Web Development, Python, C, C++, and more with
+                    interactive tutorials and premium courses</p>
+                <div class="hero-buttons">
+                    <button class="btn btn-primary"
+                        onclick="window.location.href='courses.html'">
+                        Explore Courses
+                    </button>
+                    <button class="btn btn-secondary"
+                        onclick="window.location.href='tutorials.html'">
+                        Free Tutorials
+                    </button>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="code-illustration">
+                    <div class="code-block">
+                        <span class="code-tag">&lt;html&gt;</span>
+                        <span class="code-content">Learn Code</span>
+                        <span class="code-tag">&lt;/html&gt;</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Section -->
+    <section class="trust-section">
+        <div class="container">
+            <div class="trust-cards">
+                <div class="trust-card">
+                    <i class="fas fa-video"></i>
+                    <h3>500+</h3>
+                    <p>Video Tutorials</p>
+                </div>
+                <div class="trust-card">
+                    <i class="fas fa-book"></i>
+                    <h3>100+</h3>
+                    <p>Premium Courses</p>
+                </div>
+                <div class="trust-card">
+                    <i class="fas fa-users"></i>
+                    <h3>50K+</h3>
+                    <p>Active Learners</p>
+                </div>
+                <div class="trust-card">
+                    <i class="fas fa-star"></i>
+                    <h3>4.8★</h3>
+                    <p>Average Rating</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="categories">
+        <div class="container">
+            <h2>Popular Learning Paths</h2>
+            <div class="category-grid">
+                <div class="category-card"
+                    onclick="navigateTo('tutorials.html?cat=web')">
+                    <div class="category-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3>Web Development</h3>
+                    <p>HTML, CSS, JavaScript, React, Node.js</p>
+                    <span class="category-meta">45 Courses • 200+ Lessons</span>
+                </div>
+
+                <div class="category-card"
+                    onclick="navigateTo('tutorials.html?cat=python')">
+                    <div class="category-icon">
+                        <i class="fas fa-snake"></i>
+                    </div>
+                    <h3>Python</h3>
+                    <p>From basics to data science and automation</p>
+                    <span class="category-meta">35 Courses • 150+ Lessons</span>
+                </div>
+
+                <div class="category-card"
+                    onclick="navigateTo('tutorials.html?cat=c')">
+                    <div class="category-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>C Programming</h3>
+                    <p>Master fundamentals and memory management</p>
+                    <span class="category-meta">28 Courses • 120+ Lessons</span>
+                </div>
+
+                <div class="category-card"
+                    onclick="navigateTo('tutorials.html?cat=java')">
+                    <div class="category-icon">
+                        <i class="fas fa-coffee"></i>
+                    </div>
+                    <h3>Java</h3>
+                    <p>Object-oriented programming and frameworks</p>
+                    <span class="category-meta">32 Courses • 140+ Lessons</span>
+                </div>
+
+                <div class="category-card"
+                    onclick="navigateTo('tutorials.html?cat=database')">
+                    <div class="category-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h3>Databases</h3>
+                    <p>SQL, MongoDB, and database design</p>
+                    <span class="category-meta">25 Courses • 100+ Lessons</span>
+                </div>
+
+                <div class="category-card"
+                    onclick="navigateTo('tutorials.html?cat=ai')">
+                    <div class="category-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>AI & ML</h3>
+                    <p>Artificial Intelligence and Machine Learning</p>
+                    <span class="category-meta">20 Courses • 80+ Lessons</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <div class="container">
+            <h2>What Our Students Say</h2>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p>"CodeLearn helped me transition into web development. The courses are well-structured and practical!"</p>
+                    <div class="testimonial-author">
+                        <strong>Raj Patel</strong>
+                        <span>Full Stack Developer</span>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p>"The free tutorials are excellent quality. I learned Python basics completely free and loved every bit!"</p>
+                    <div class="testimonial-author">
+                        <strong>Priya Singh</strong>
+                        <span>Software Engineer</span>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p>"Best investment for my coding journey. Clear explanations, real-world projects, and great community support."</p>
+                    <div class="testimonial-author">
+                        <strong>Arjun Sharma</strong>
+                        <span>Data Scientist</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to Start Your Learning Journey?</h2>
+            <p>Join thousands of students learning to code today</p>
+            <button class="btn btn-primary btn-large"
+                onclick="window.location.href='login.html'">
+                Get Started Free
+            </button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>CodeLearn</h4>
+                    <p>Empowering the next generation of programmers
+                        worldwide.</p>
+                    <div class="social-icons">
+                        <a href="#" title="YouTube"><i
+                                class="fab fa-youtube"></i></a>
+                        <a href="#" title="Twitter"><i
+                                class="fab fa-twitter"></i></a>
+                        <a href="#" title="Instagram"><i
+                                class="fab fa-instagram"></i></a>
+                        <a href="#" title="GitHub"><i
+                                class="fab fa-github"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="courses.html">Courses</a></li>
+                        <li><a href="tutorials.html">Tutorials</a></li>
+                        <li><a href="notes.html">Notes</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="contact.html">Support</a></li>
+                        <li><a href="#">Community</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Refund Policy</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 CodeLearn. All rights reserved. | Built with ❤️
+                    for learners</p>
+            </div>
+        </div>
+    </footer>
+<script>
+  if (!localStorage.getItem("user")) {
+    window.location.href = "login.html";
+  }
+</script>
+
+    <script src="script.js"></script>
+    <script>
+  const user = localStorage.getItem("user");
+
+  const navMenu = document.getElementById("navMenu");
+  const loginBtn = document.querySelector(".btn-login");
+
+  if (user) {
+    // Change Login → Profile
+    if (loginBtn) {
+      loginBtn.textContent = user;
+      loginBtn.href = "profile.html";
+    }
+  }
+</script>
+
+</body>
+</html>

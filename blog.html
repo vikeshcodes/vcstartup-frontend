@@ -1,0 +1,191 @@
+<!-- blog.html - Blog Page -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - CodeLearn</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-wrapper">
+                <div class="nav-wrapper">
+                    <a href="index.html" class="logo">
+                        <i class="fas fa-code"></i> BhaveshRao
+                    </a>
+
+                </div>
+                <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="courses.html">Courses</a></li>
+                    <li><a href="tutorials.html">Tutorials</a></li>
+                    <li><a href="notes.html">Notes</a></li>
+                    <li><a href="blog.html" class="active">Blog</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><button id="theme-toggle" class="theme-toggle" title="Toggle Theme"><i class="fas fa-moon"></i></button></li>
+                    <li><a href="login.html" class="btn-login">Login</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="page-header">
+        <div class="container">
+            <h1>CodeLearn Blog</h1>
+            <p>Articles, tutorials, and insights on programming</p>
+        </div>
+    </section>
+
+    <section class="page-content">
+        <div class="container">
+            <div class="grid">
+                <article class="blog-post" onclick="readBlogPost(1)">
+                    <div class="post-image" style="background: linear-gradient(135deg, #3498db, #2ecc71); height: 200px; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem;">
+                        <i class="fas fa-laptop"></i>
+                    </div>
+                    <div class="post-body">
+                        <h3>Getting Started with Web Development</h3>
+                        <p class="post-meta">By CodeLearn Team • December 15, 2024</p>
+                        <p>Learn the fundamentals of web development and start your journey to becoming a web developer...</p>
+                        <a href="javascript:readBlogPost(1)" class="btn btn-primary btn-small">Read More →</a>
+                    </div>
+                </article>
+
+                <article class="blog-post" onclick="readBlogPost(2)">
+                    <div class="post-image" style="background: linear-gradient(135deg, #e74c3c, #f39c12); height: 200px; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem;">
+                        <i class="fab fa-js"></i>
+                    </div>
+                    <div class="post-body">
+                        <h3>JavaScript ES6 Features You Should Know</h3>
+                        <p class="post-meta">By Expert Developer • December 10, 2024</p>
+                        <p>Explore modern JavaScript features that make your code more efficient and readable...</p>
+                        <a href="javascript:readBlogPost(2)" class="btn btn-primary btn-small">Read More →</a>
+                    </div>
+                </article>
+
+                <article class="blog-post">
+                    <div class="post-image" style="background: linear-gradient(135deg, #9b59b6, #3498db); height: 200px; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem;">
+                        <i class="fab fa-python"></i>
+                    </div>
+                    <div class="post-body">
+                        <h3>Python for Data Science and AI</h3>
+                        <p class="post-meta">By Data Expert • December 5, 2024</p>
+                        <p>How to leverage Python libraries for data science, machine learning, and AI projects...</p>
+                        <a href="#" class="btn btn-primary btn-small">Read More →</a>
+                    </div>
+                </article>
+
+                <article class="blog-post">
+                    <div class="post-image" style="background: linear-gradient(135deg, #1abc9c, #16a085); height: 200px; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem;">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <div class="post-body">
+                        <h3>Database Design Best Practices</h3>
+                        <p class="post-meta">By Database Admin • November 28, 2024</p>
+                        <p>Learn how to design efficient databases and optimize queries for better performance...</p>
+                        <a href="#" class="btn btn-primary btn-small">Read More →</a>
+                    </div>
+                </article>
+
+                <article class="blog-post">
+                    <div class="post-image" style="background: linear-gradient(135deg, #f1c40f, #e67e22); height: 200px; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem;">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <div class="post-body">
+                        <h3>Clean Code Practices Every Programmer Should Follow</h3>
+                        <p class="post-meta">By Code Quality Expert • November 20, 2024</p>
+                        <p>Tips and best practices for writing clean, maintainable, and professional code...</p>
+                        <a href="#" class="btn btn-primary btn-small">Read More →</a>
+                    </div>
+                </article>
+
+                <article class="blog-post">
+                    <div class="post-image" style="background: linear-gradient(135deg, #34495e, #2c3e50); height: 200px; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem;">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <div class="post-body">
+                        <h3>Essential Developer Tools and IDE Recommendations</h3>
+                        <p class="post-meta">By Tech Writer • November 15, 2024</p>
+                        <p>Discover the best tools and IDEs to boost your productivity as a developer...</p>
+                        <a href="#" class="btn btn-primary btn-small">Read More →</a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>CodeLearn</h4>
+                    <p>Empowering the next generation of programmers worldwide.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="courses.html">Courses</a></li>
+                        <li><a href="tutorials.html">Tutorials</a></li>
+                        <li><a href="notes.html">Notes</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="contact.html">Support</a></li>
+                        <li><a href="#">Community</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Refund Policy</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 CodeLearn. All rights reserved. | Built with ❤️ for learners</p>
+            </div>
+        </div>
+    </footer>
+    <script>
+  if (!localStorage.getItem("user")) {
+    window.location.href = "login.html";
+  }
+</script>
+
+
+    <script src="script.js"></script>
+    <script>
+  const user = localStorage.getItem("user");
+
+  const navMenu = document.getElementById("navMenu");
+  const loginBtn = document.querySelector(".btn-login");
+
+  if (user) {
+    // Change Login → Profile
+    if (loginBtn) {
+      loginBtn.textContent = user;
+      loginBtn.href = "profile.html";
+    }
+  }
+</script>
+
+</body>
+</html>

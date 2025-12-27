@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Profile</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+        <nav class="navbar">
+            <div class="container">
+                <div class="nav-wrapper">
+                    <a href="index.html" class="logo">
+                        <i class="fas fa-code"></i> BhaveshRao
+                    </a>
+
+                </div>
+                <button class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="index.html" class="active">Home</a></li>
+                    <li><a href="courses.html">Courses</a></li>
+                    <li><a href="tutorials.html">Tutorials</a></li>
+                    <li><a href="notes.html">Notes</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><button id="theme-toggle" class="theme-toggle" title="Toggle Theme"><i class="fas fa-moon"></i></button></li>
+                    <li><button onclick="logout()" style="padding:10px 20px;">Logout</button></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+  <section class="page-content" style="padding: 40px;">
+    <h2>Your Profile</h2>
+    <p id="username"></p>
+
+    <button onclick="logout()" style="padding:10px 20px;">Logout</button>
+  </section>
+<script>
+  if (!localStorage.getItem("user")) {
+    window.location.href = "login.html";
+  }
+</script>
+
+  <script>
+    const user = localStorage.getItem("user");
+
+    if (!user) {
+      // Not logged in → send to login
+      window.location.href = "login.html";
+    }
+
+    document.getElementById("username").textContent = "Logged in as: " + user;
+
+    function logout() {
+      localStorage.removeItem("user");
+      localStorage.removeItem("token");
+      window.location.href = "login.html";
+    }
+  </script>
+</body>
+</html>
