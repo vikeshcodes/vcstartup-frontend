@@ -60,7 +60,8 @@
           e.preventDefault();
           const email = document.getElementById("email").value;
 
-          const res = await fetch("https://localhost:5000/otp/request", {
+          const res = await fetch("https://bhavesh-backend.onrender.com/otp/request", {
+
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email }),
@@ -134,3 +135,4 @@
         </footer>
     </body>
 </html>
+
