@@ -1,40 +1,73 @@
 <!-- index.html - Homepage -->
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>CodeLearn - Learn Programming From Basics</title>
-        <link rel="stylesheet" href="styles.css">
-        <link rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    </head>
-    <body>
-        <!-- Navigation Bar -->
-        <nav class="navbar">
-            <div class="container">
-                <div class="nav-wrapper">
-                    <a href="index.html" class="logo">
-                        <i class="fas fa-code"></i> BhaveshRao
-                    </a>
 
-                </div>
-                <button class="hamburger" id="hamburger">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
-                <ul class="nav-menu" id="navMenu">
-                    <li><a href="index.html" class="active">Home</a></li>
-                    <li><a href="courses.html">Courses</a></li>
-                    <li><a href="tutorials.html">Tutorials</a></li>
-                    <li><a href="notes.html">Notes</a></li>
-                    <li><a href="blog.html">Blog</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                    <li><button id="theme-toggle" class="theme-toggle" title="Toggle Theme"><i class="fas fa-moon"></i></button></li>
-                    <li><a href="login.html" class="btn-login">Login</a></li>
-                </ul>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeLearn - Learn Programming From Basics</title>
+    <meta name="description" content="CodeLearn offers interactive programming tutorials and premium courses in Web Development, Python, C, C++, and more. Start your coding journey today!">
+    <meta name="keywords" content="learn coding, web development, python, c++, coding courses, programming tutorials, codelearn">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://yourwebsite.com/">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <!-- OpenGraph (Social + Google Preview) -->
+    <meta property="og:title" content="CodeLearn - Learn Programming From Basics">
+    <meta property="og:description" content="Interactive tutorials & coding courses for beginners in Web Development, Python, C, and more.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yourwebsite.com/">
+    <meta property="og:image" content="https://yourwebsite.com/preview.png">
+
+    <!-- Structured Data (Google Sitelines Signal) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "CodeLearn",
+      "url": "https://yourwebsite.com",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://yourwebsite.com/search?q={search_term}",
+        "query-input": "required name=search_term"
+      }
+    }
+    </script>
+
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-wrapper">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-code"></i> BhaveshRao
+                </a>
+
             </div>
+            <button class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="courses.html">Courses</a></li>
+                <li><a href="tutorials.html">Tutorials</a></li>
+                <li><a href="notes.html">Notes</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><button id="theme-toggle" class="theme-toggle" title="Toggle Theme"><i
+                            class="fas fa-moon"></i></button></li>
+                <li><a href="login.html" class="btn-login">Login</a></li>
+            </ul>
+        </div>
         </div>
     </nav>
 
@@ -46,12 +79,10 @@
                 <p>Master Web Development, Python, C, C++, and more with
                     interactive tutorials and premium courses</p>
                 <div class="hero-buttons">
-                    <button class="btn btn-primary"
-                        onclick="window.location.href='courses.html'">
+                    <button class="btn btn-primary" onclick="window.location.href='courses.html'">
                         Explore Courses
                     </button>
-                    <button class="btn btn-secondary"
-                        onclick="window.location.href='tutorials.html'">
+                    <button class="btn btn-secondary" onclick="window.location.href='tutorials.html'">
                         Free Tutorials
                     </button>
                 </div>
@@ -101,8 +132,7 @@
         <div class="container">
             <h2>Popular Learning Paths</h2>
             <div class="category-grid">
-                <div class="category-card"
-                    onclick="navigateTo('tutorials.html?cat=web')">
+                <div class="category-card" onclick="navigateTo('tutorials.html?cat=web')">
                     <div class="category-icon">
                         <i class="fas fa-globe"></i>
                     </div>
@@ -111,8 +141,7 @@
                     <span class="category-meta">45 Courses • 200+ Lessons</span>
                 </div>
 
-                <div class="category-card"
-                    onclick="navigateTo('tutorials.html?cat=python')">
+                <div class="category-card" onclick="navigateTo('tutorials.html?cat=python')">
                     <div class="category-icon">
                         <i class="fas fa-snake"></i>
                     </div>
@@ -121,8 +150,7 @@
                     <span class="category-meta">35 Courses • 150+ Lessons</span>
                 </div>
 
-                <div class="category-card"
-                    onclick="navigateTo('tutorials.html?cat=c')">
+                <div class="category-card" onclick="navigateTo('tutorials.html?cat=c')">
                     <div class="category-icon">
                         <i class="fas fa-code"></i>
                     </div>
@@ -131,8 +159,7 @@
                     <span class="category-meta">28 Courses • 120+ Lessons</span>
                 </div>
 
-                <div class="category-card"
-                    onclick="navigateTo('tutorials.html?cat=java')">
+                <div class="category-card" onclick="navigateTo('tutorials.html?cat=java')">
                     <div class="category-icon">
                         <i class="fas fa-coffee"></i>
                     </div>
@@ -141,8 +168,7 @@
                     <span class="category-meta">32 Courses • 140+ Lessons</span>
                 </div>
 
-                <div class="category-card"
-                    onclick="navigateTo('tutorials.html?cat=database')">
+                <div class="category-card" onclick="navigateTo('tutorials.html?cat=database')">
                     <div class="category-icon">
                         <i class="fas fa-database"></i>
                     </div>
@@ -151,8 +177,7 @@
                     <span class="category-meta">25 Courses • 100+ Lessons</span>
                 </div>
 
-                <div class="category-card"
-                    onclick="navigateTo('tutorials.html?cat=ai')">
+                <div class="category-card" onclick="navigateTo('tutorials.html?cat=ai')">
                     <div class="category-icon">
                         <i class="fas fa-brain"></i>
                     </div>
@@ -171,7 +196,8 @@
             <div class="testimonial-grid">
                 <div class="testimonial-card">
                     <div class="stars">★★★★★</div>
-                    <p>"CodeLearn helped me transition into web development. The courses are well-structured and practical!"</p>
+                    <p>"CodeLearn helped me transition into web development. The courses are well-structured and
+                        practical!"</p>
                     <div class="testimonial-author">
                         <strong>Raj Patel</strong>
                         <span>Full Stack Developer</span>
@@ -180,7 +206,8 @@
 
                 <div class="testimonial-card">
                     <div class="stars">★★★★★</div>
-                    <p>"The free tutorials are excellent quality. I learned Python basics completely free and loved every bit!"</p>
+                    <p>"The free tutorials are excellent quality. I learned Python basics completely free and loved
+                        every bit!"</p>
                     <div class="testimonial-author">
                         <strong>Priya Singh</strong>
                         <span>Software Engineer</span>
@@ -189,7 +216,8 @@
 
                 <div class="testimonial-card">
                     <div class="stars">★★★★★</div>
-                    <p>"Best investment for my coding journey. Clear explanations, real-world projects, and great community support."</p>
+                    <p>"Best investment for my coding journey. Clear explanations, real-world projects, and great
+                        community support."</p>
                     <div class="testimonial-author">
                         <strong>Arjun Sharma</strong>
                         <span>Data Scientist</span>
@@ -204,8 +232,7 @@
         <div class="container">
             <h2>Ready to Start Your Learning Journey?</h2>
             <p>Join thousands of students learning to code today</p>
-            <button class="btn btn-primary btn-large"
-                onclick="window.location.href='login.html'">
+            <button class="btn btn-primary btn-large" onclick="window.location.href='login.html'">
                 Get Started Free
             </button>
         </div>
@@ -220,14 +247,10 @@
                     <p>Empowering the next generation of programmers
                         worldwide.</p>
                     <div class="social-icons">
-                        <a href="#" title="YouTube"><i
-                                class="fab fa-youtube"></i></a>
-                        <a href="#" title="Twitter"><i
-                                class="fab fa-twitter"></i></a>
-                        <a href="#" title="Instagram"><i
-                                class="fab fa-instagram"></i></a>
-                        <a href="#" title="GitHub"><i
-                                class="fab fa-github"></i></a>
+                        <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
+                        <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" title="GitHub"><i class="fab fa-github"></i></a>
                     </div>
                 </div>
 
@@ -268,27 +291,31 @@
             </div>
         </div>
     </footer>
-<script>
-  if (!localStorage.getItem("user")) {
-    window.location.href = "login.html";
-  }
-</script>
-
-    <script src="script.js"></script>
     <script>
-  const user = localStorage.getItem("user");
+        const user = localStorage.getItem("user");
 
-  const navMenu = document.getElementById("navMenu");
-  const loginBtn = document.querySelector(".btn-login");
+        const navMenu = document.getElementById("navMenu");
+        const loginBtn = document.querySelector(".btn-login");
 
-  if (user) {
-    // Change Login → Profile
-    if (loginBtn) {
-      loginBtn.textContent = user;
-      loginBtn.href = "profile.html";
-    }
-  }
-</script>
+        if (user) {
+            // Change Login → Profile
+            if (loginBtn) {
+                loginBtn.textContent = user;
+                loginBtn.href = "profile.html";
+            }
+        } else {
+            // Redirect to login if not logged in
+            window.location.href = "login.html";
+        }
+
+        // Logout function (optional)
+        function logout() {
+            localStorage.removeItem("user");
+            window.location.href = "login.html";
+        }
+    </script>
+    <script src="script.js"></script>
 
 </body>
+
 </html>

@@ -35,9 +35,39 @@
         </div>
     </nav>
 
+
+
   <section class="page-content" style="padding: 40px;">
     <h2>Your Profile</h2>
     <p id="username"></p>
+
+
+    <div class="profile-container">
+    <h2>Your Profile</h2>
+
+    <center>
+      <img id="imgPreview" class="profile-pic" src="default.png">
+      <br>
+      <input type="file" id="imgInput" accept="image/*">
+    </center>
+
+    <label>Name:</label>
+    <input id="name" class="form-group" style="width:100%">
+
+    <label>Email:</label>
+    <input id="email" disabled style="width:100%">
+
+    <label>Date of Birth:</label>
+    <input id="dob" type="date" style="width:100%">
+
+    <label>Phone:</label>
+    <input id="phone" style="width:100%">
+
+    <label>Address:</label>
+    <textarea id="address" style="width:100%"></textarea>
+
+    <button class="btn btn-update" onclick="saveProfile()">Save</button>
+  </div>
 
     <button onclick="logout()" style="padding:10px 20px;">Logout</button>
   </section>
@@ -47,7 +77,64 @@
   }
 </script>
 
+<script>const token = localStorage.getItem("token");
+
+if (!token) window.location.href = "login.html";
+
+// Load user profile on page load
+window.onload = async () => {
+  const res = await fetch("http://localhost:5000/profile/me", {
+    headers: { Authorization: "Bearer " + token }
+  });
+  const user = await res.json();
+
+  document.getElementById("name").value = user.name;
+  document.getElementById("email").value = user.email;
+  document.getElementById("dob").value = user.dob;
+  document.getElementById("phone").value = user.phone;
+  document.getElementById("address").value = user.address;
+
+  if (user.profilePic) document.getElementById("imgPreview").src = user.profilePic;
+};
+
+// Convert uploaded image → Base64
+document.getElementById("imgInput").onchange = function (e) {
+  const reader = new FileReader();
+  reader.onload = () => {
+    document.getElementById("imgPreview").src = reader.result;
+  };
+  reader.readAsDataURL(e.target.files[0]);
+};
+
+// Save profile
+async function saveProfile() {
+  const body = {
+    name: document.getElementById("name").value,
+    dob: document.getElementById("dob").value,
+    phone: document.getElementById("phone").value,
+    address: document.getElementById("address").value,
+    profilePic: document.getElementById("imgPreview").src
+  };
+
+  const res = await fetch("http://localhost:5000/profile/update", {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + token
+    },
+    body: JSON.stringify(body)
+  });
+
+  const data = await res.json();
+  alert(data.message || "Updated!");
+}
+</script>
+
   <script>
+    fetch("http://localhost:5000/profile/me", {
+  headers: { Authorization: "Bearer " + localStorage.getItem("token") }
+})
+
     const user = localStorage.getItem("user");
 
     if (!user) {
