@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎯 Guess The Word Ultimate</title>
+<style>
+  * { box-sizing: border-box; font-family: "Poppins", sans-serif; }
+  body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(135deg, #1f1c2c, #928dab);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: white;
+  }
+
+  .container {
+    background: rgba(255,255,255,0.1);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 0 25px rgba(0,0,0,0.4);
+    text-align: center;
+    width: 340px;
+  }
+
+  h1 { margin-bottom: 10px; font-size: 1.8em; }
+
+  select {
+    margin-bottom: 15px;
+    padding: 6px;
+    border-radius: 8px;
+    font-weight: bold;
+    background: #ffca28;
+    border: none;
+    cursor: pointer;
+  }
+
+  img {
+    width: 150px;
+    height: 150px;
+    border-radius: 10px;
+    margin: 10px 0;
+    object-fit: cover;
+    box-shadow: 0 0 15px rgba(255,255,255,0.3);
+  }
+
+  .hint {
+    font-size: 1em;
+    color: #fff59d;
+    margin-bottom: 10px;
+  }
+
+  .scrambled {
+    font-size: 1.3em;
+    letter-spacing: 5px;
+    margin: 10px 0;
+    font-weight: 600;
+    color: #ffe082;
+  }
+
+  input {
+    width: 100%;
+    padding: 10px;
+    font-size: 1em;
+    border: none;
+    border-radius: 8px;
+    text-align: center;
+    margin-bottom: 15px;
+  }
+
+  button {
+    background: #ffca28;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-weight: 600;
+    margin: 5px;
+    transition: 0.3s;
+  }
+
+  button:hover { background: #ffa000; transform: scale(1.05); }
+
+  .result {
+    margin-top: 10px;
+    font-size: 1.2em;
+    font-weight: bold;
+  }
+
+  .correct {
+    color: #2ecc71;
+    animation: pop 0.4s ease;
+  }
+
+  .wrong {
+    color: #e74c3c;
+    animation: shake 0.4s ease;
+  }
+
+  @keyframes pop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.3); }
+    100% { transform: scale(1); }
+  }
+
+  @keyframes shake {
+    0%,100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+  }
+
+  .score {
+    margin-top: 15px;
+    font-weight: bold;
+    color: #fff;
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎯 Guess The Word</h1>
+    <select id="level">
+      <option value="easy">Easy 🟢</option>
+      <option value="medium">Medium 🟡</option>
+      <option value="hard">Hard 🔴</option>
+    </select>
+    <img id="image" src="" alt="Hint Image">
+    <div class="hint" id="hint">Hint:</div>
+    <div class="scrambled" id="scrambled"></div>
+    <input type="text" id="guess" placeholder="Type your guess...">
+    <div>
+      <button id="checkBtn">Check</button>
+      <button id="nextBtn">Next</button>
+      <button id="restartBtn">Restart</button>
+    </div>
+    <div class="result" id="result"></div>
+    <div class="score">Score: <span id="score">0</span></div>
+  </div>
+
+<script>
+const wordSets = {
+  easy: [
+    { word: "apple", hint: "A red or green fruit", img: "https://upload.wikimedia.org/wikipedia/commons/1/15/Red_Apple.jpg" },
+    { word: "dog", hint: "Man’s best friend", img: "https://upload.wikimedia.org/wikipedia/commons/d/d9/Collage_of_Nine_Dogs.jpg" },
+    { word: "sun", hint: "Gives light and heat", img: "https://upload.wikimedia.org/wikipedia/commons/c/c3/Solar_sys8.jpg" },
+    { word: "ball", hint: "Used in many sports", img: "https://upload.wikimedia.org/wikipedia/commons/0/0e/Soccer_ball.svg" }
+  ],
+  medium: [
+    { word: "pencil", hint: "Used for writing", img: "https://upload.wikimedia.org/wikipedia/commons/7/74/Pencil_yellow_2.jpg" },
+    { word: "guitar", hint: "A musical instrument", img: "https://upload.wikimedia.org/wikipedia/commons/4/45/GuitareClassique5.png" },
+    { word: "flower", hint: "Found in gardens", img: "https://upload.wikimedia.org/wikipedia/commons/b/b5/Rose_Red_Flower.jpg" },
+    { word: "camera", hint: "Used for taking pictures", img: "https://upload.wikimedia.org/wikipedia/commons/3/3b/Camera_icon.svg" }
+  ],
+  hard: [
+    { word: "computer", hint: "Used for programming", img: "https://upload.wikimedia.org/wikipedia/commons/3/3a/Computer.jpg" },
+    { word: "astronaut", hint: "Travels in space", img: "https://upload.wikimedia.org/wikipedia/commons/9/9c/Astronaut_EVA.jpg" },
+    { word: "mountain", hint: "Very tall natural structure", img: "https://upload.wikimedia.org/wikipedia/commons/3/3f/Mountain_range.jpg" },
+    { word: "microscope", hint: "Used to see small things", img: "https://upload.wikimedia.org/wikipedia/commons/f/f0/Microscope_icon.svg" }
+  ]
+};
+
+let currentSet = [];
+let currentIndex = 0;
+let score = 0;
+
+const img = document.getElementById("image");
+const hintEl = document.getElementById("hint");
+const scrambledEl = document.getElementById("scrambled");
+const input = document.getElementById("guess");
+const result = document.getElementById("result");
+const checkBtn = document.getElementById("checkBtn");
+const nextBtn = document.getElementById("nextBtn");
+const restartBtn = document.getElementById("restartBtn");
+const scoreEl = document.getElementById("score");
+const levelSelect = document.getElementById("level");
+
+function shuffleWord(word) {
+  return word.split('').sort(() => Math.random() - 0.5).join('');
+}
+
+function loadLevel(level) {
+  currentSet = [...wordSets[level]];
+  currentIndex = 0;
+  score = 0;
+  scoreEl.textContent = score;
+  loadWord();
+}
+
+function loadWord() {
+  const item = currentSet[currentIndex];
+  img.src = item.img;
+  hintEl.textContent = "Hint: " + item.hint;
+  scrambledEl.textContent = "Scrambled: " + shuffleWord(item.word);
+  input.value = "";
+  result.textContent = "";
+}
+
+checkBtn.onclick = () => {
+  const guess = input.value.trim().toLowerCase();
+  if (!guess) return;
+  if (guess === currentSet[currentIndex].word.toLowerCase()) {
+    result.textContent = "✅ Correct!";
+    result.className = "result correct";
+    score++;
+    scoreEl.textContent = score;
+  } else {
+    result.textContent = "❌ Wrong! It was " + currentSet[currentIndex].word;
+    result.className = "result wrong";
+  }
+};
+
+nextBtn.onclick = () => {
+  currentIndex++;
+  if (currentIndex >= currentSet.length) {
+    result.textContent = "🎉 Level Completed!";
+    result.className = "result correct";
+    return;
+  }
+  loadWord();
+};
+
+restartBtn.onclick = () => loadLevel(levelSelect.value);
+levelSelect.onchange = () => loadLevel(levelSelect.value);
+
+loadLevel("easy");
+</script>
+</body>
+</html>

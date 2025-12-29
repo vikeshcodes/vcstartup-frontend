@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🧠 Memory Match - Hidden Pics</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    color: white;
+  }
+  h1 {
+    font-size: 2em;
+    margin-bottom: 20px;
+  }
+  #game-board {
+    display: grid;
+    grid-template-columns: repeat(4, 90px);
+    grid-gap: 15px;
+    justify-content: center;
+  }
+  .card {
+    width: 90px;
+    height: 90px;
+    perspective: 900px;
+    cursor: pointer;
+  }
+  .inner {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.6s;
+  }
+  .card.flipped .inner {
+    transform: rotateY(180deg);
+  }
+  .front, .back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .front {
+    background: radial-gradient(circle, #ffeb3b 40%, #fbc02d 100%);
+    box-shadow: 0 0 25px 10px rgba(255, 235, 59, 0.6);
+  }
+  .back {
+    transform: rotateY(180deg);
+    background-color: #fff;
+    border: 2px solid #eee;
+  }
+  .back img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  #score {
+    margin-top: 15px;
+    font-size: 1.2em;
+    font-weight: bold;
+  }
+  #restartBtn {
+    margin-top: 20px;
+    background: gold;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    font-weight: 600;
+  }
+  #restartBtn:hover {
+    background: orange;
+  }
+</style>
+</head>
+<body>
+  <h1>🧩 Memory Match</h1>
+  <div id="game-board"></div>
+  <div id="score">Moves: 0</div>
+  <button id="restartBtn">Restart</button>
+
+<script>
+const board = document.getElementById("game-board");
+const scoreEl = document.getElementById("score");
+const restartBtn = document.getElementById("restartBtn");
+
+// 8 random pictures from Picsum
+const images = [
+  "https://picsum.photos/id/1015/200",
+  "https://picsum.photos/id/1016/200",
+  "https://picsum.photos/id/1025/200",
+  "https://picsum.photos/id/1035/200",
+  "https://picsum.photos/id/1041/200",
+  "https://picsum.photos/id/1043/200",
+  "https://picsum.photos/id/1050/200",
+  "https://picsum.photos/id/1052/200"
+];
+
+let cards = [];
+let flipped = [];
+let moves = 0;
+let matched = 0;
+
+function shuffleCards() {
+  const all = [...images, ...images];
+  return all.sort(() => Math.random() - 0.5);
+}
+
+function createBoard() {
+  board.innerHTML = "";
+  cards = shuffleCards();
+  moves = 0;
+  matched = 0;
+  scoreEl.textContent = `Moves: ${moves}`;
+  cards.forEach((imgSrc, index) => {
+    const card = document.createElement("div");
+    card.classList.add("card");
+    card.dataset.image = imgSrc;
+    card.innerHTML = `
+      <div class="inner">
+        <div class="front"></div>
+        <div class="back"><img src="${imgSrc}" alt="card"></div>
+      </div>
+    `;
+    card.addEventListener("click", flipCard);
+    board.appendChild(card);
+  });
+}
+
+function flipCard() {
+  if (flipped.length >= 2 || this.classList.contains("flipped")) return;
+  this.classList.add("flipped");
+  flipped.push(this);
+
+  if (flipped.length === 2) {
+    moves++;
+    scoreEl.textContent = `Moves: ${moves}`;
+    checkMatch();
+  }
+}
+
+function checkMatch() {
+  const [card1, card2] = flipped;
+  if (card1.dataset.image === card2.dataset.image) {
+    matched++;
+    flipped = [];
+    if (matched === images.length) {
+      setTimeout(() => {
+        alert(`🎉 You won in ${moves} moves!`);
+      }, 500);
+    }
+  } else {
+    setTimeout(() => {
+      card1.classList.remove("flipped");
+      card2.classList.remove("flipped");
+      flipped = [];
+    }, 800);
+  }
+}
+
+restartBtn.addEventListener("click", createBoard);
+createBoard();
+</script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Click Speed Challenge</title>
+<style>
+  :root{--bg1:#0f1724;--bg2:#0b2545;--accent:#ffd700}
+  *{box-sizing:border-box}
+  body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;font-family:Inter,ui-sans-serif,system-ui,Segoe UI,Roboto,"Helvetica Neue",Arial;background:linear-gradient(180deg,var(--bg1),var(--bg2));color:#fff}
+  .card{width:420px;padding:28px;border-radius:16px;background:linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0.02));box-shadow:0 8px 30px rgba(2,6,23,0.6);text-align:center}
+  h1{margin:0 0 12px;font-size:1.4rem}
+  .controls{display:flex;gap:12px;justify-content:center;align-items:center;margin-top:18px}
+  #clickBtn{background:var(--accent);border:none;padding:22px 36px;border-radius:12px;font-weight:700;color:#222;font-size:1.2rem;cursor:pointer;transition:transform .08s ease,filter .12s}
+  #clickBtn:active{transform:scale(.98)}
+  #clickBtn:disabled{filter:grayscale(.6);opacity:.8;cursor:not-allowed}
+  button.secondary{background:transparent;border:1px solid rgba(255,255,255,0.08);color:#fff;padding:10px 14px;border-radius:10px;cursor:pointer}
+  .meta{display:flex;justify-content:space-between;margin-top:14px;font-weight:600}
+  .big{font-size:1.6rem}
+  @media (max-width:480px){.card{width:92vw;padding:18px}.controls{flex-direction:column}}
+</style>
+</head>
+<body>
+  <div class="card" role="application" aria-label="Click speed game">
+    <h1>🔥 Click Speed Challenge</h1>
+    <div class="meta"><div>Time left: <span id="timer" class="big">10</span>s</div><div>Clicks: <span id="count" class="big">0</span></div></div>
+
+    <div class="controls">
+      <button id="clickBtn" disabled aria-label="Click fast">CLICK</button>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <button id="startBtn" class="secondary">Start 10s</button>
+        <button id="resetBtn" class="secondary">Reset</button>
+      </div>
+    </div>
+
+    <p style="opacity:.8;margin-top:12px">Tap or press the big button as fast as you can during the countdown.</p>
+  </div>
+
+<script>
+(() => {
+  const clickBtn = document.getElementById('clickBtn');
+  const startBtn = document.getElementById('startBtn');
+  const resetBtn = document.getElementById('resetBtn');
+  const timerEl = document.getElementById('timer');
+  const countEl = document.getElementById('count');
+
+  let count = 0, timeLeft = 10, timerId = null;
+  function reset() {
+    clearInterval(timerId);
+    count = 0; timeLeft = 10;
+    clickBtn.disabled = true;
+    startBtn.disabled = false;
+    timerEl.textContent = timeLeft;
+    countEl.textContent = count;
+  }
+
+  function start() {
+    count = 0; timeLeft = parseInt(timerEl.textContent) || 10;
+    clickBtn.disabled = false; startBtn.disabled = true;
+    timerId = setInterval(() => {
+      timeLeft--;
+      timerEl.textContent = timeLeft;
+      if (timeLeft <= 0) {
+        clearInterval(timerId);
+        clickBtn.disabled = true;
+        startBtn.disabled = false;
+        alert('Time up! Clicks: ' + count);
+      }
+    }, 1000);
+  }
+
+  clickBtn.addEventListener('click', () => {
+    count++;
+    countEl.textContent = count;
+  });
+  startBtn.addEventListener('click', start);
+  resetBtn.addEventListener('click', reset);
+
+  // keyboard / tap accessibility
+  document.addEventListener('keydown', e => { if (e.code === 'Space') clickBtn.click(); });
+  reset();
+})();
+</script>
+</body>
+</html>

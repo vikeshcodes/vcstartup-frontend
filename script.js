@@ -1,5 +1,21 @@
 // script.js - Main JavaScript File
 
+// LOGIN STATE CONTROL – FIX FLICKERING
+const token = localStorage.getItem("token");
+const username = localStorage.getItem("username");
+const loginBtn = document.querySelector(".btn-login");
+
+if (loginBtn) {
+  if (token) {
+    loginBtn.textContent = username || "Profile";
+    loginBtn.href = "profile.html";
+  } else {
+    loginBtn.textContent = "Login";
+    loginBtn.href = "login.html";
+  }
+}
+
+
 // Mobile Navigation Toggle
 document.addEventListener('DOMContentLoaded', function() {
     const hamburger = document.getElementById('hamburger');

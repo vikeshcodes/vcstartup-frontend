@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Games | BhaveshRao</title>
+  <link rel="stylesheet" href="styles.css" />
+
+  <style>
+    .games-container { max-width: 1100px; margin: 60px auto; padding: 20px; }
+    .games-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+      gap: 20px;
+      margin-top: 30px;
+    }
+    .game-card {
+      background: var(--color-surface);
+      padding: 20px;
+      border: 1px solid var(--color-card-border);
+      border-radius: var(--radius-lg);
+      font-size:18px;
+      text-align:center;
+      cursor:pointer;
+      transition:0.2s;
+    }
+    .game-card:hover {
+      transform:translateY(-4px);
+      border-color:var(--color-primary);
+      box-shadow:var(--shadow-md);
+    }
+    iframe#gameFrame {
+      display:none;
+      width:100%;
+      height:650px;
+      border:none;
+      margin-top:40px;
+      border-radius:10px;
+    }
+    #backBtn {
+      display:none;
+      margin-top:20px;
+      padding:10px 20px;
+      background:var(--color-primary);
+      border:none;
+      border-radius:6px;
+      color:white;
+      cursor:pointer;
+    }
+  </style>
+</head>
+<body>
+
+   <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-wrapper">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-code"></i> BhaveshRao
+                </a>
+
+            </div>
+            <button class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="courses.html">Courses</a></li>
+                <li><a href="tutorials.html">Tutorials</a></li>
+                <li><a href="games.html">Games</a></li>
+                <li><a href="notes.html">Notes</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><button id="theme-toggle" class="theme-toggle" title="Toggle Theme"><i
+                            class="fas fa-moon"></i></button></li>
+                <li><a href="login.html" class="btn-login">Login</a></li>
+            </ul>
+        </div>
+        </div>
+    </nav>
+  <!-- MAIN SECTION -->
+  <section class="games-container">
+    <h2>🎮 Mini Games – Practice & Have Fun!</h2>
+    <p>Select a game below to play:</p>
+
+    <div id="gamesList" class="games-grid"></div>
+
+    <button id="backBtn" onclick="showList()">⬅ Back to Games</button>
+    <iframe id="gameFrame"></iframe>
+  </section>
+
+    <!-- Categories Section -->
+    <section class="categories">
+        <div class="container">
+            <h2>Popular Learning Paths</h2>
+            <div class="category-grid">
+                <div class="category-card" onclick="navigateTo('tutorials.html?cat=web')">
+                    <div class="category-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3>Web Development</h3>
+                    <p>HTML, CSS, JavaScript, React, Node.js</p>
+                    <span class="category-meta">45 Courses • 200+ Lessons</span>
+                </div>
+
+                <div class="category-card" onclick="navigateTo('tutorials.html?cat=python')">
+                    <div class="category-icon">
+                        <i class="fas fa-snake"></i>
+                    </div>
+                    <h3>Python</h3>
+                    <p>From basics to data science and automation</p>
+                    <span class="category-meta">35 Courses • 150+ Lessons</span>
+                </div>
+
+                <div class="category-card" onclick="navigateTo('tutorials.html?cat=c')">
+                    <div class="category-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>C Programming</h3>
+                    <p>Master fundamentals and memory management</p>
+                    <span class="category-meta">28 Courses • 120+ Lessons</span>
+                </div>
+
+                <div class="category-card" onclick="navigateTo('tutorials.html?cat=java')">
+                    <div class="category-icon">
+                        <i class="fas fa-coffee"></i>
+                    </div>
+                    <h3>Java</h3>
+                    <p>Object-oriented programming and frameworks</p>
+                    <span class="category-meta">32 Courses • 140+ Lessons</span>
+                </div>
+
+                <div class="category-card" onclick="navigateTo('tutorials.html?cat=database')">
+                    <div class="category-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h3>Databases</h3>
+                    <p>SQL, MongoDB, and database design</p>
+                    <span class="category-meta">25 Courses • 100+ Lessons</span>
+                </div>
+
+                <div class="category-card" onclick="navigateTo('tutorials.html?cat=ai')">
+                    <div class="category-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>AI & ML</h3>
+                    <p>Artificial Intelligence and Machine Learning</p>
+                    <span class="category-meta">20 Courses • 80+ Lessons</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <div class="container">
+            <h2>What Our Students Say</h2>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p>"CodeLearn helped me transition into web development. The courses are well-structured and
+                        practical!"</p>
+                    <div class="testimonial-author">
+                        <strong>Raj Patel</strong>
+                        <span>Full Stack Developer</span>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p>"The free tutorials are excellent quality. I learned Python basics completely free and loved
+                        every bit!"</p>
+                    <div class="testimonial-author">
+                        <strong>Priya Singh</strong>
+                        <span>Software Engineer</span>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p>"Best investment for my coding journey. Clear explanations, real-world projects, and great
+                        community support."</p>
+                    <div class="testimonial-author">
+                        <strong>Arjun Sharma</strong>
+                        <span>Data Scientist</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to Start Your Learning Journey?</h2>
+            <p>Join thousands of students learning to code today</p>
+            <button class="btn btn-primary btn-large" onclick="window.location.href='login.html'">
+                Get Started Free
+            </button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>CodeLearn</h4>
+                    <p>Empowering the next generation of programmers
+                        worldwide.</p>
+                    <div class="social-icons">
+                        <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
+                        <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" title="GitHub"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="courses.html">Courses</a></li>
+                        <li><a href="tutorials.html">Tutorials</a></li>
+                        <li><a href="notes.html">Notes</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="contact.html">Support</a></li>
+                        <li><a href="#">Community</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Refund Policy</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 CodeLearn. All rights reserved. | Built with ❤️
+                    for learners</p>
+            </div>
+        </div>
+    </footer>
+<script>
+const games = {
+  "aim tranier": "aim.html",
+  "avoid the block": "avoid.html",
+  "brick breaker": "brick.html",
+  "click speed": "click.html",
+  "click speed v2": "clickv2.html",
+  "dino runner": "dino.html",
+  "floopy bird": "flopy.html",
+  "guess the word": "guessword.html",
+  "memory match": "memory.html",
+  "memory v2": "memory2.html",
+  "number puzzle": "number.html",
+  "sliding puzzle": "slide.html",
+  "snake": "snake.html"
+};
+
+const list = document.getElementById("gamesList");
+const frame = document.getElementById("gameFrame");
+const backBtn = document.getElementById("backBtn");
+
+Object.keys(games).forEach(game => {
+  const div = document.createElement("div");
+  div.className = "game-card";
+  div.innerText = game;
+  div.onclick = () => openGame(game);
+  list.appendChild(div);
+});
+
+function openGame(game) {
+  list.style.display = "none";
+  frame.style.display = "block";
+  backBtn.style.display = "inline-block";
+
+  frame.src = `Games/${game}/${games[game]}`;
+}
+
+function showList() {
+  frame.style.display = "none";
+  backBtn.style.display = "none";
+  list.style.display = "grid";
+}
+</script>
+<script src="script.js"></script>
+
+</body>
+</html>

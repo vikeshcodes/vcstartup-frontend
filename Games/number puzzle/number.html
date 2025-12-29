@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>🧩 Sliding Puzzle v2</title>
+<style>
+  * { box-sizing: border-box; user-select: none; }
+  body {
+    margin: 0;
+    background: linear-gradient(135deg, #1a237e, #283593, #3949ab);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: "Poppins", sans-serif;
+    color: #fff;
+  }
+
+  h1 {
+    margin-bottom: 15px;
+    font-size: 1.8em;
+    letter-spacing: 1px;
+  }
+
+  #board {
+    position: relative;
+    width: 340px;
+    height: 340px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    gap: 5px;
+    padding: 5px;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.4);
+  }
+
+  .tile {
+    position: absolute;
+    width: 75px;
+    height: 75px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(145deg, #ffcc00, #ff8800);
+    border-radius: 10px;
+    font-size: 1.6em;
+    font-weight: bold;
+    color: #222;
+    cursor: pointer;
+    transition: transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .tile:hover {
+    background: linear-gradient(145deg, #ffee58, #fbc02d);
+    box-shadow: 0 0 15px rgba(255, 235, 59, 0.6);
+    transform: scale(1.05);
+  }
+
+  .movable {
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+    background: linear-gradient(145deg, #ffd54f, #ffb300);
+  }
+
+  #info {
+    margin-top: 15px;
+    font-size: 1.1em;
+  }
+
+  #restart {
+    margin-top: 10px;
+    background: gold;
+    border: none;
+    border-radius: 10px;
+    padding: 8px 18px;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  #restart:hover {
+    background: orange;
+  }
+</style>
+</head>
+<body>
+<h1>🧩 Sliding Puzzle v2</h1>
+<div id="board"></div>
+<div id="info">Moves: <span id="moves">0</span></div>
+<button id="restart">Restart</button>
+
+<script>
+const board = document.getElementById("board");
+const movesEl = document.getElementById("moves");
+const restartBtn = document.getElementById("restart");
+
+const size = 4;
+let tiles = [];
+let empty = { x: 3, y: 3 };
+let moves = 0;
+const tileSize = 85;
+
+function init() {
+  tiles = [];
+  let numbers = Array.from({ length: 15 }, (_, i) => i + 1);
+  shuffle(numbers);
+  let index = 0;
+  for (let y = 0; y < size; y++) {
+    for (let x = 0; x < size; x++) {
+      if (x === 3 && y === 3) continue;
+      const num = numbers[index++];
+      tiles.push({ x, y, num });
+    }
+  }
+  render();
+  moves = 0;
+  movesEl.textContent = moves;
+}
+
+function shuffle(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+}
+
+function render() {
+  board.innerHTML = "";
+  tiles.forEach(tile => {
+    const el = document.createElement("div");
+    el.className = "tile";
+    el.textContent = tile.num;
+    el.style.transform = `translate(${tile.x * tileSize}px, ${tile.y * tileSize}px)`;
+    el.addEventListener("click", () => tryMove(tile));
+    board.appendChild(el);
+  });
+  highlightMovables();
+}
+
+function highlightMovables() {
+  const els = document.querySelectorAll(".tile");
+  els.forEach(el => el.classList.remove("movable"));
+  tiles.forEach((tile, i) => {
+    if (isAdjacent(tile, empty)) {
+      els[i].classList.add("movable");
+    }
+  });
+}
+
+function isAdjacent(t1, t2) {
+  const dx = Math.abs(t1.x - t2.x);
+  const dy = Math.abs(t1.y - t2.y);
+  return dx + dy === 1;
+}
+
+function tryMove(tile) {
+  if (!isAdjacent(tile, empty)) return;
+  const oldX = tile.x, oldY = tile.y;
+  tile.x = empty.x;
+  tile.y = empty.y;
+  empty.x = oldX;
+  empty.y = oldY;
+  moves++;
+  movesEl.textContent = moves;
+  render();
+  checkWin();
+}
+
+function checkWin() {
+  let correct = true;
+  let count = 1;
+  for (let y = 0; y < size; y++) {
+    for (let x = 0; x < size; x++) {
+      if (x === 3 && y === 3) continue;
+      const tile = tiles.find(t => t.x === x && t.y === y);
+      if (!tile || tile.num !== count) correct = false;
+      count++;
+    }
+  }
+  if (correct) {
+    setTimeout(() => alert(`🎉 You solved it in ${moves} moves!`), 300);
+  }
+}
+
+restartBtn.addEventListener("click", init);
+
+// Keyboard controls
+document.addEventListener("keydown", e => {
+  let dir = { x: 0, y: 0 };
+  if (e.key === "ArrowUp") dir.y = 1;
+  if (e.key === "ArrowDown") dir.y = -1;
+  if (e.key === "ArrowLeft") dir.x = 1;
+  if (e.key === "ArrowRight") dir.x = -1;
+  moveTileByKeyboard(dir);
+});
+
+function moveTileByKeyboard(dir) {
+  const target = tiles.find(t => t.x === empty.x + dir.x && t.y === empty.y + dir.y);
+  if (target) tryMove(target);
+}
+
+init();
+</script>
+</body>
+</html>

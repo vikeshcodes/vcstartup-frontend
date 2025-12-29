@@ -62,6 +62,7 @@
                 <li><a href="index.html" class="active">Home</a></li>
                 <li><a href="courses.html">Courses</a></li>
                 <li><a href="tutorials.html">Tutorials</a></li>
+                <li><a href="games.html">Games</a></li>
                 <li><a href="notes.html">Notes</a></li>
                 <li><a href="blog.html">Blog</a></li>
                 <li><a href="contact.html">Contact</a></li>
@@ -294,28 +295,28 @@
         </div>
     </footer>
     <script>
-        const user = localStorage.getItem("user");
+const token = localStorage.getItem("token");
+const username = localStorage.getItem("username");
+const loginBtn = document.querySelector(".btn-login");
 
-        const navMenu = document.getElementById("navMenu");
-        const loginBtn = document.querySelector(".btn-login");
+// update navbar button
+if (loginBtn) {
+  if (token) {
+    loginBtn.textContent = username || "Profile";
+    loginBtn.href = "profile.html";
+  } else {
+    loginBtn.textContent = "Login";
+    loginBtn.href = "login.html";
+  }
+}
 
-        if (user) {
-            // Change Login → Profile
-            if (loginBtn) {
-                loginBtn.textContent = user;
-                loginBtn.href = "profile.html";
-            }
-        } else {
-            // Redirect to login if not logged in
-            window.location.href = "login.html";
-        }
+// optional logout function (only used on profile page usually)
+function logout() {
+  localStorage.clear();
+  window.location.href = "login.html";
+}
+</script>
 
-        // Logout function (optional)
-        function logout() {
-            localStorage.removeItem("user");
-            window.location.href = "login.html";
-        }
-    </script>
     <script src="script.js"></script>
 
 </body>

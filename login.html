@@ -151,6 +151,7 @@
                     <li><a href="index.html">Home</a></li>
                     <li><a href="courses.html">Courses</a></li>
                     <li><a href="tutorials.html">Tutorials</a></li>
+                    <li><a href="games.html">Games</a></li>
                     <li><a href="notes.html">Notes</a></li>
                     <li><a href="blog.html">Blog</a></li>
                     <li><a href="contact.html">Contact</a></li>
@@ -386,153 +387,112 @@
             </div>
         </div>
     </footer>
+<script>
+if (localStorage.getItem("token")) {
+  window.location.href = "index.html";
+}
+</script>
 
     <script src="script.js"></script>
 
     <script>
+const BASE_URL = "http://localhost:5000";
 let otpVerified = false;
 
-async function sendOtp() {
-    const email = document.getElementById("signup-email").value;
-    if (!email) return alert("Enter email first");
+function switchAuthTab(tab, el) {
+    document.querySelectorAll(".auth-content").forEach(div => div.classList.remove("active"));
+    document.querySelectorAll(".auth-tab").forEach(btn => btn.classList.remove("active"));
+    document.getElementById(tab).classList.add("active");
+    if (el) el.classList.add("active");
+}
 
-    const res = await fetch("http://http://localhost:5000/otp/signup-send", {
+/* LOGIN */
+async function submitLogin() {
+    const email = document.getElementById("login-email").value;
+    const password = document.getElementById("login-password").value;
+    if (!email || !password) return alert("Required!");
+
+    const res = await fetch(`${BASE_URL}/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email, password })
     });
 
     const data = await res.json();
-    if (data.error) return alert(data.error);
+    if (!res.ok) return alert(data.error || data.message);
 
-    alert("OTP sent successfully!");
+    localStorage.setItem("token", data.token);
+    localStorage.setItem("username", data.name);
+
+    window.location.href = "profile.html";  // redirect
+}
+
+/* OTP SEND */
+async function sendOtp() {
+    const email = document.getElementById("signup-email").value;
+    if (!email) return alert("Enter email!");
+
+    const res = await fetch(`${BASE_URL}/otp/signup-send`, {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email })
+    });
+
+    const data = await res.json();
+    if (!res.ok) return alert(data.error || data.message);
+
+    alert("OTP sent!");
     document.getElementById("otpBox").style.display = "block";
 }
 
+/* OTP VERIFY */
 async function verifyOtp() {
     const email = document.getElementById("signup-email").value;
     const otp = document.getElementById("otp").value;
 
-    const res = await fetch("http://http://localhost:5000/otp/signup-verify", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, otp }),
+    const res = await fetch(`${BASE_URL}/otp/signup-verify`, {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, otp })
     });
 
     const data = await res.json();
-
-    if (data.error) return alert(data.error);
-
-    alert("OTP Verified Successfully!");
+    if (!res.ok) return alert(data.error || data.message);
 
     otpVerified = true;
     document.getElementById("passBox").style.display = "block";
     document.getElementById("signupBtn").style.display = "block";
 }
 
+/* SIGNUP */
 async function submitSignup() {
-    if (!otpVerified) return alert("Verify OTP before submitting");
+    if (!otpVerified) return alert("Verify OTP!");
 
     const name = document.getElementById("signup-name").value;
     const email = document.getElementById("signup-email").value;
     const password = document.getElementById("signup-password").value;
     const confirm = document.getElementById("signup-confirm").value;
+    if (password !== confirm) return alert("Passwords mismatch");
 
-    if (password !== confirm) return alert("Passwords do not match");
-
-    const res = await fetch("http://http://localhost:5000/auth/signup", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, password }),
+    const res = await fetch(`${BASE_URL}/auth/signup`, {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, password })
     });
 
     const data = await res.json();
     alert(data.message);
-
-    if (res.ok) {
-        localStorage.setItem("user", name);
-        window.location.href = "index.html";
-    }
+    if (res.ok) window.location.href = "login.html";
 }
+
+/* NAVBAR FIX */
+window.onload = () => {
+    const user = localStorage.getItem("username");
+    const loginBtn = document.querySelector(".btn-login");
+    if (user && loginBtn) {
+        loginBtn.textContent = user;
+        loginBtn.href = "profile.html";
+    }
+};
 </script>
 
-
-    <!--<script>
-        if (data.status === "ok") {
-  localStorage.setItem("user", name);
-  window.location.href = "index.html";
-} 
-
-    </script>-->
-    <!-- <script>
-        const data = await res.json();
-       if (data.error) {
-    alert(data.error);
-    return;
-}
-
-if (data.verified === true) {
-    alert("OTP Verified Successfully!");
-    otpVerified = true;
-    document.getElementById("passBox").style.display = "block";
-    document.getElementById("signupBtn").style.display = "block";
-}
-    </script>  -->
-    <!-- <script>
- async function submitForm(formId) {
-  const form = document.getElementById(formId);
-  const data = Object.fromEntries(new FormData(form));
-
-  if (formId === "signupForm") {
-    const res = await fetch("http://http://localhost:5000/auth/signup", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data)
-    });
-    const result = await res.json();
-    if (res.ok) {
-      alert("Signup successful!");
-      window.location.href = "index.html";
-    } else {
-      alert(result.message);
-    }
-  }
-
-  if (formId === "loginForm") {
-    const res = await fetch("http://http://localhost:5000/auth/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data)
-    });
-    const result = await res.json();
-
-    if (res.ok) {
-      localStorage.setItem("token", result.token);
-      localStorage.setItem("user", result.name);
-      window.location.href = "index.html";
-    } else {
-      alert(result.error);
-    }
-  }
-}  
-
-    </script>
-
-    
-    <script>
-        const user = localStorage.getItem("user");
-
-        const navMenu = document.getElementById("navMenu");
-        const loginBtn = document.querySelector(".btn-login");
-
-        if (user) {
-            // Change Login → Profile
-            if (loginBtn) {
-                loginBtn.textContent = user;
-                loginBtn.href = "profile.html";
-            }
-        }
-    </script>-->
 
 </body>
 
