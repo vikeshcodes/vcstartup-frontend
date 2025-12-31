@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Click Speed Game</title>
+<style>
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #007bff, #00d4ff);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+  }
+  h1 {
+    font-size: 2em;
+    margin-bottom: 20px;
+  }
+  #game {
+    text-align: center;
+  }
+  #clickBtn {
+    background: gold;
+    border: none;
+    border-radius: 12px;
+    padding: 20px 40px;
+    font-size: 1.5em;
+    cursor: pointer;
+    color: #333;
+    transition: transform 0.2s;
+  }
+  #clickBtn:active {
+    transform: scale(0.9);
+  }
+  #result, #timer {
+    font-size: 1.3em;
+    margin-top: 15px;
+  }
+</style>
+</head>
+<body>
+  <div id="game">
+    <h1>🔥 Click Speed Challenge 🔥</h1>
+    <button id="clickBtn" disabled>Start</button>
+    <div id="timer">Time: 10s</div>
+    <div id="result">Clicks: 0</div>
+    <button id="startBtn">Start Game</button>
+  </div>
+
+<script>
+  const clickBtn = document.getElementById("clickBtn");
+  const startBtn = document.getElementById("startBtn");
+  const timerEl = document.getElementById("timer");
+  const resultEl = document.getElementById("result");
+  let clicks = 0;
+  let timeLeft = 10;
+  let timer;
+
+  startBtn.addEventListener("click", () => {
+    clicks = 0;
+    timeLeft = 10;
+    resultEl.textContent = "Clicks: 0";
+    timerEl.textContent = "Time: 10s";
+    clickBtn.disabled = false;
+    startBtn.disabled = true;
+
+    timer = setInterval(() => {
+      timeLeft--;
+      timerEl.textContent = `Time: ${timeLeft}s`;
+      if (timeLeft <= 0) {
+        clearInterval(timer);
+        clickBtn.disabled = true;
+        startBtn.disabled = false;
+        timerEl.textContent = "Time's up!";
+      }
+    }, 1000);
+  });
+
+  clickBtn.addEventListener("click", () => {
+    clicks++;
+    resultEl.textContent = `Clicks: ${clicks}`;
+  });
+</script>
+</body>
+</html>

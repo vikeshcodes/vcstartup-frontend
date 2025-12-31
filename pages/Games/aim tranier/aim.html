@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Aim Trainer</title>
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#0f1724,#071226);font-family:Inter,system-ui,Arial;color:#fff}
+  .wrap{width:94vw;max-width:900px;padding:12px;text-align:center}
+  h1{margin:0 0 8px}
+  #arena{background:#0b2230;border-radius:10px;margin:0 auto;touch-action:none}
+  .controls{display:flex;justify-content:space-between;margin-top:10px;gap:10px}
+  button{background:#ffd54f;border:none;padding:8px 12px;border-radius:8px;color:#222;cursor:pointer;font-weight:700}
+  .stats{display:flex;gap:12px;align-items:center}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>🎯 Aim Trainer</h1>
+  <canvas id="arena" width="900" height="480"></canvas>
+  <div class="controls">
+    <div class="stats">
+      <div>Score: <span id="score">0</span></div>
+      <div>Hits: <span id="hits">0</span></div>
+      <div>Misses: <span id="misses">0</span></div>
+    </div>
+    <div>
+      <select id="level">
+        <option value="easy">Easy</option>
+        <option value="medium" selected>Medium</option>
+        <option value="hard">Hard</option>
+      </select>
+      <button id="start">Start</button>
+      <button id="stop">Stop</button>
+    </div>
+  </div>
+  <p style="opacity:.8;margin-top:8px">Click or tap moving targets for points. Higher levels = faster/smaller targets.</p>
+</div>
+
+<script>
+(() => {
+  const canvas = document.getElementById('arena');
+  const ctx = canvas.getContext('2d');
+  const startBtn = document.getElementById('start'), stopBtn = document.getElementById('stop');
+  const scoreEl = document.getElementById('score'), hitsEl = document.getElementById('hits'), missesEl = document.getElementById('misses');
+  const levelSel = document.getElementById('level');
+
+  let targets = [], running=false, score=0, hits=0, misses=0, spawnTimer=null;
+  let params = {spawnRate:900, speed:1.2, size:40, lifetime:3000};
+
+  function setParams(level){
+    if(level==='easy'){ params = {spawnRate:900, speed:0.9, size:60, lifetime:3500}; }
+    else if(level==='medium'){ params = {spawnRate:700, speed:1.4, size:48, lifetime:3000}; }
+    else { params = {spawnRate:500, speed:1.8, size:36, lifetime:2800}; }
+  }
+
+  function spawn(){
+    const w = canvas.width, h = canvas.height;
+    const r = params.size/2;
+    const x = Math.random()*(w - 2*r) + r;
+    const y = Math.random()*(h - 2*r) + r;
+    const vx = (Math.random()*2-1) * params.speed;
+    const vy = (Math.random()*2-1) * params.speed;
+    const born = performance.now();
+    targets.push({x,y,vx,vy,r,born});
+  }
+
+  function update(ts){
+    if(!running) return;
+    const now = performance.now();
+    // physics
+    targets.forEach(t=>{
+      t.x += t.vx;
+      t.y += t.vy;
+      // bounce
+      if(t.x - t.r < 0){ t.x = t.r; t.vx *= -1; }
+      if(t.x + t.r > canvas.width){ t.x = canvas.width - t.r; t.vx *= -1; }
+      if(t.y - t.r < 0){ t.y = t.r; t.vy *= -1; }
+      if(t.y + t.r > canvas.height){ t.y = canvas.height - t.r; t.vy *= -1; }
+    });
+    // remove old
+    for(let i=targets.length-1;i>=0;i--){
+      if(now - targets[i].born > params.lifetime){ targets.splice(i,1); misses++; missesEl.textContent = misses; }
+    }
+    draw();
+    requestAnimationFrame(update);
+  }
+
+  function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    // background
+    ctx.fillStyle = '#071a22'; ctx.fillRect(0,0,canvas.width,canvas.height);
+    // targets
+    targets.forEach(t=>{
+      // glow
+      const g = ctx.createRadialGradient(t.x,t.y,t.r*0.2,t.x,t.y,t.r);
+      g.addColorStop(0,'rgba(255,200,50,0.95)');
+      g.addColorStop(0.6,'rgba(255,120,0,0.9)');
+      g.addColorStop(1,'rgba(255,80,0,0.6)');
+      ctx.fillStyle = g;
+      ctx.beginPath(); ctx.arc(t.x,t.y,t.r,0,Math.PI*2); ctx.fill();
+      // inner circle
+      ctx.fillStyle = 'rgba(255,255,255,0.6)'; ctx.beginPath(); ctx.arc(t.x,t.y,t.r*0.4,0,Math.PI*2); ctx.fill();
+    });
+  }
+
+  function start(){
+    if(running) return;
+    setParams(levelSel.value);
+    targets = []; score=0; hits=0; misses=0;
+    scoreEl.textContent=0; hitsEl.textContent=0; missesEl.textContent=0;
+    running = true;
+    spawn(); // immediate
+    spawnTimer = setInterval(spawn, params.spawnRate);
+    requestAnimationFrame(update);
+  }
+
+  function stop(){
+    running = false;
+    if(spawnTimer) clearInterval(spawnTimer);
+  }
+
+  function hitAt(x,y){
+    for(let i=targets.length-1;i>=0;i--){
+      const t = targets[i];
+      const dx = x - t.x, dy = y - t.y;
+      if(dx*dx + dy*dy <= t.r*t.r){
+        targets.splice(i,1);
+        hits++; hitsEl.textContent = hits;
+        score += Math.round(100 + (50 * (params.size / t.r)));
+        scoreEl.textContent = score;
+        // local hit effect - small circle
+        burst(x,y);
+        return true;
+      }
+    }
+    // miss effect
+    misses++; missesEl.textContent = misses;
+    return false;
+  }
+
+  function burst(x,y){
+    // simple small flash
+    ctx.fillStyle = 'rgba(255,255,255,0.6)';
+    ctx.beginPath(); ctx.arc(x,y,12,0,Math.PI*2); ctx.fill();
+    setTimeout(draw,80);
+  }
+
+  // mouse / touch
+  canvas.addEventListener('mousedown', e => {
+    const rect = canvas.getBoundingClientRect();
+    const x = e.clientX - rect.left, y = e.clientY - rect.top;
+    hitAt(x,y);
+  });
+  canvas.addEventListener('touchstart', e => {
+    e.preventDefault();
+    const rect = canvas.getBoundingClientRect();
+    const t = e.touches[0];
+    const x = t.clientX - rect.left, y = t.clientY - rect.top;
+    hitAt(x,y);
+  }, {passive:false});
+
+  startBtn.addEventListener('click', start);
+  stopBtn.addEventListener('click', stop);
+
+  // responsive
+  function resize(){
+    const maxW = Math.min(window.innerWidth * 0.95, 900);
+    canvas.width = Math.floor(maxW);
+    canvas.height = Math.floor(Math.min(window.innerHeight * 0.6, 520));
+    draw();
+  }
+  window.addEventListener('resize', resize);
+  resize();
+})();
+</script>
+</body>
+</html>

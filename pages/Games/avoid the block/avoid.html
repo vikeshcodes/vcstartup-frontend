@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Avoid the Blocks</title>
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;font-family:Inter,system-ui,Roboto;background:linear-gradient(180deg,#111827,#0f1724);color:#fff;display:flex;align-items:center;justify-content:center;height:100vh}
+  .wrap{width:420px;padding:16px;border-radius:14px;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));text-align:center}
+  canvas{display:block;margin:14px auto;border-radius:8px;background:linear-gradient(180deg,#0b1220,#122032);box-shadow:0 12px 40px rgba(0,0,0,.6)}
+  #controls{display:flex;gap:8px;justify-content:center}
+  button{background:#ffd54f;border:none;padding:8px 12px;border-radius:8px;cursor:pointer;font-weight:700}
+  .meta{display:flex;justify-content:space-between;margin-top:8px;font-weight:700}
+  @media (max-width:480px){.wrap{width:94vw}}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <h2>Avoid the Blocks</h2>
+    <div class="meta"><div>Score: <span id="score">0</span></div><div>Speed: <span id="spd">1</span></div></div>
+    <canvas id="g" width="360" height="560"></canvas>
+    <div id="controls"><button id="start">Start</button><button id="restart">Restart</button></div>
+    <p style="opacity:.8;margin-top:8px">Use ← → or tap left/right on the canvas.</p>
+  </div>
+
+<script>
+(() => {
+  const canvas = document.getElementById('g'); const ctx = canvas.getContext('2d');
+  const startBtn = document.getElementById('start'), restartBtn = document.getElementById('restart');
+  const scoreEl = document.getElementById('score'), spdEl = document.getElementById('spd');
+
+  const W = canvas.width, H = canvas.height;
+  let car, blocks, running, spawnTimer, score, speed;
+
+  function reset() {
+    car = { w:48, h:60, x: W/2 - 24, y: H - 80, color:'#ffd54f' };
+    blocks = []; running = false; score=0; speed=2; spdEl.textContent = speed.toFixed(1);
+    scoreEl.textContent = score;
+    clearInterval(spawnTimer);
+    draw();
+  }
+
+  function start(){
+    if(running) return;
+    running=true;
+    spawnTimer = setInterval(spawn, 900);
+    requestAnimationFrame(loop);
+  }
+
+  function spawn() {
+    const bw = 40 + Math.random()*70, bx = Math.random()*(W - bw);
+    blocks.push({x:bx,y:-60,w:bw,h:22,color:'#ef4444'});
+  }
+
+  function loop(){
+    if(!running) return;
+    ctx.clearRect(0,0,W,H);
+    // background
+    const g = ctx.createLinearGradient(0,0,0,H); g.addColorStop(0,'#06202b'); g.addColorStop(1,'#0b1e2a');
+    ctx.fillStyle = g; ctx.fillRect(0,0,W,H);
+
+    // car
+    ctx.fillStyle = car.color; roundRect(ctx, car.x, car.y, car.w, car.h, 10, true);
+
+    // blocks
+    for(let i=blocks.length-1;i>=0;i--){
+      const b = blocks[i];
+      b.y += speed;
+      ctx.fillStyle = b.color; roundRect(ctx, b.x, b.y, b.w, b.h, 6, true);
+      if(collides(b, car)) { lose(); return; }
+      if(b.y > H) { blocks.splice(i,1); score += 10; if(score % 100 === 0) speed += 0.5; scoreEl.textContent = score; spdEl.textContent = speed.toFixed(1); }
+    }
+    requestAnimationFrame(loop);
+  }
+
+  function collides(a,b){ return !(a.x + a.w < b.x || a.x > b.x + b.w || a.y + a.h < b.y || a.y > b.y + b.h); }
+
+  function lose(){ running=false; clearInterval(spawnTimer); alert('Game Over — Score: ' + score); }
+
+  function roundRect(ctx,x,y,w,h,r,fill){ ctx.beginPath(); ctx.moveTo(x+r,y); ctx.arcTo(x+w,y,x+w,y+h,r); ctx.arcTo(x+w,y+h,x,y+h,r); ctx.arcTo(x,y+h,x,y,r); ctx.arcTo(x,y,x+w,y,r); ctx.closePath(); if(fill) ctx.fill(); }
+
+  // controls
+  document.addEventListener('keydown', e=> { if(e.key==='ArrowLeft') car.x = Math.max(0, car.x - 60); if(e.key==='ArrowRight') car.x = Math.min(W - car.w, car.x + 60); });
+  canvas.addEventListener('touchstart', e=> { const t = e.touches[0]; const rect = canvas.getBoundingClientRect(); const x = t.clientX - rect.left; car.x = x < W/2 ? Math.max(0, car.x - 60) : Math.min(W - car.w, car.x + 60); }, {passive:true});
+  canvas.addEventListener('mousedown', e=> { const rect=canvas.getBoundingClientRect(); const x=e.clientX-rect.left; car.x = x < W/2 ? Math.max(0, car.x - 60) : Math.min(W - car.w, car.x + 60); });
+
+  startBtn.addEventListener('click', start);
+  restartBtn.addEventListener('click', reset);
+
+  reset();
+})();
+</script>
+</body>
+</html>

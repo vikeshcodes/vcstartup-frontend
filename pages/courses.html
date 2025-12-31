@@ -1,0 +1,359 @@
+<!-- courses.html - Courses Page -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses - CodeLearn</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-wrapper">
+                <div class="nav-wrapper">
+                    <a href="index.html" class="logo">
+                        <i class="fas fa-code"></i> BhaveshRao
+                    </a>
+
+                </div>
+                <button class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="courses.html" class="active">Courses</a></li>
+                    <li><a href="tutorials.html">Tutorials</a></li>
+                    <li><a href="games.html">Games</a></li>
+                    <li><a href="notes.html">Notes</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><button id="theme-toggle" class="theme-toggle" title="Toggle Theme"><i class="fas fa-moon"></i></button></li>
+                    <li><a href="login.html" class="btn-login">Login</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Premium Courses</h1>
+            <p>Master programming with industry-standard courses</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="page-content">
+        <div class="container">
+            <!-- Search and Filter Section -->
+            <div class="search-filter">
+                <input type="text" id="searchInput" placeholder="Search courses..." onkeyup="searchCourses()">
+                <select onchange="filterByCategory(this.value)">
+                    <option value="all">All Categories</option>
+                    <option value="web">Web Development</option>
+                    <option value="python">Python</option>
+                    <option value="c">C Programming</option>
+                    <option value="java">Java</option>
+                    <option value="database">Database</option>
+                </select>
+                <select onchange="filterByDifficulty(this.value)">
+                    <option value="all">All Levels</option>
+                    <option value="beginner">Beginner</option>
+                    <option value="intermediate">Intermediate</option>
+                    <option value="advanced">Advanced</option>
+                </select>
+            </div>
+
+            <!-- Courses Grid -->
+            <div class="grid">
+                <!-- Web Development Course -->
+                <div class="course-card" data-category="web" data-difficulty="beginner" data-price="499">
+                    <div class="card-image">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <div class="card-body">
+                        <h3>Complete Web Development</h3>
+                        <div class="card-meta">
+                            <span class="badge beginner">Beginner</span>
+                            <span class="badge">Web Dev</span>
+                        </div>
+                        <p>Master HTML, CSS, JavaScript and build responsive websites from scratch.</p>
+                        <div style="margin-top: 1rem;">
+                            <strong style="color: #27ae60; font-size: 1.3rem;">₹499</strong>
+                            <button class="btn btn-primary btn-small" onclick="enrollCourse('Complete Web Development', 499)" style="float: right;">Enroll Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- React Course -->
+                <div class="course-card" data-category="web" data-difficulty="intermediate" data-price="699">
+                    <div class="card-image">
+                        <i class="fas fa-react"></i>
+                    </div>
+                    <div class="card-body">
+                        <h3>React.js Advanced Course</h3>
+                        <div class="card-meta">
+                            <span class="badge intermediate">Intermediate</span>
+                            <span class="badge">Frontend</span>
+                        </div>
+                        <p>Learn React hooks, state management, and build production-ready applications.</p>
+                        <div style="margin-top: 1rem;">
+                            <strong style="color: #27ae60; font-size: 1.3rem;">₹699</strong>
+                            <button class="btn btn-primary btn-small" onclick="enrollCourse('React.js Advanced', 699)" style="float: right;">Enroll Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Python Course -->
+                <div class="course-card" data-category="python" data-difficulty="beginner" data-price="399">
+                    <div class="card-image">
+                        <i class="fas fa-python"></i>
+                    </div>
+                    <div class="card-body">
+                        <h3>Python Basics to Advanced</h3>
+                        <div class="card-meta">
+                            <span class="badge beginner">Beginner</span>
+                            <span class="badge">Programming</span>
+                        </div>
+                        <p>Complete Python course covering basics, OOP, and practical projects.</p>
+                        <div style="margin-top: 1rem;">
+                            <strong style="color: #27ae60; font-size: 1.3rem;">₹399</strong>
+                            <button class="btn btn-primary btn-small" onclick="enrollCourse('Python Basics to Advanced', 399)" style="float: right;">Enroll Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- C Programming Course -->
+                <div class="course-card" data-category="c" data-difficulty="beginner" data-price="349">
+                    <div class="card-image">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <div class="card-body">
+                        <h3>C Programming Fundamentals</h3>
+                        <div class="card-meta">
+                            <span class="badge beginner">Beginner</span>
+                            <span class="badge">Systems</span>
+                        </div>
+                        <p>Master C language fundamentals, pointers, and memory management.</p>
+                        <div style="margin-top: 1rem;">
+                            <strong style="color: #27ae60; font-size: 1.3rem;">₹349</strong>
+                            <button class="btn btn-primary btn-small" onclick="enrollCourse('C Programming Fundamentals', 349)" style="float: right;">Enroll Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Java Course -->
+                <div class="course-card" data-category="java" data-difficulty="intermediate" data-price="599">
+                    <div class="card-image">
+                        <i class="fas fa-coffee"></i>
+                    </div>
+                    <div class="card-body">
+                        <h3>Java for Enterprise Development</h3>
+                        <div class="card-meta">
+                            <span class="badge intermediate">Intermediate</span>
+                            <span class="badge">Backend</span>
+                        </div>
+                        <p>Learn Java, OOP concepts, and build scalable enterprise applications.</p>
+                        <div style="margin-top: 1rem;">
+                            <strong style="color: #27ae60; font-size: 1.3rem;">₹599</strong>
+                            <button class="btn btn-primary btn-small" onclick="enrollCourse('Java for Enterprise', 599)" style="float: right;">Enroll Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Node.js Course -->
+                <div class="course-card" data-category="web" data-difficulty="intermediate" data-price="649">
+                    <div class="card-image">
+                        <i class="fas fa-node"></i>
+                    </div>
+                    <div class="card-body">
+                        <h3>Node.js & Express.js</h3>
+                        <div class="card-meta">
+                            <span class="badge intermediate">Intermediate</span>
+                            <span class="badge">Backend</span>
+                        </div>
+                        <p>Build RESTful APIs and backend services with Node.js and Express.</p>
+                        <div style="margin-top: 1rem;">
+                            <strong style="color: #27ae60; font-size: 1.3rem;">₹649</strong>
+                            <button class="btn btn-primary btn-small" onclick="enrollCourse('Node.js & Express', 649)" style="float: right;">Enroll Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Database Course -->
+                <div class="course-card" data-category="database" data-difficulty="intermediate" data-price="549">
+                    <div class="card-image">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <div class="card-body">
+                        <h3>SQL & Database Design</h3>
+                        <div class="card-meta">
+                            <span class="badge intermediate">Intermediate</span>
+                            <span class="badge">Database</span>
+                        </div>
+                        <p>Master SQL, database design, and optimization techniques.</p>
+                        <div style="margin-top: 1rem;">
+                            <strong style="color: #27ae60; font-size: 1.3rem;">₹549</strong>
+                            <button class="btn btn-primary btn-small" onclick="enrollCourse('SQL & Database Design', 549)" style="float: right;">Enroll Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MongoDB Course -->
+                <div class="course-card" data-category="database" data-difficulty="intermediate" data-price="579">
+                    <div class="card-image">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <div class="card-body">
+                        <h3>MongoDB NoSQL Database</h3>
+                        <div class="card-meta">
+                            <span class="badge intermediate">Intermediate</span>
+                            <span class="badge">NoSQL</span>
+                        </div>
+                        <p>Learn MongoDB, aggregation framework, and NoSQL best practices.</p>
+                        <div style="margin-top: 1rem;">
+                            <strong style="color: #27ae60; font-size: 1.3rem;">₹579</strong>
+                            <button class="btn btn-primary btn-small" onclick="enrollCourse('MongoDB NoSQL', 579)" style="float: right;">Enroll Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Advanced JavaScript -->
+                <div class="course-card" data-category="web" data-difficulty="advanced" data-price="799">
+                    <div class="card-image">
+                        <i class="fas fa-js"></i>
+                    </div>
+                    <div class="card-body">
+                        <h3>Advanced JavaScript Patterns</h3>
+                        <div class="card-meta">
+                            <span class="badge advanced">Advanced</span>
+                            <span class="badge">JavaScript</span>
+                        </div>
+                        <p>Closures, design patterns, async programming, and performance optimization.</p>
+                        <div style="margin-top: 1rem;">
+                            <strong style="color: #27ae60; font-size: 1.3rem;">₹799</strong>
+                            <button class="btn btn-primary btn-small" onclick="enrollCourse('Advanced JavaScript', 799)" style="float: right;">Enroll Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Machine Learning Course -->
+                <div class="course-card" data-category="ai" data-difficulty="advanced" data-price="1299">
+                    <div class="card-image">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <div class="card-body">
+                        <h3>Machine Learning with Python</h3>
+                        <div class="card-meta">
+                            <span class="badge advanced">Advanced</span>
+                            <span class="badge">ML</span>
+                        </div>
+                        <p>Learn ML algorithms, TensorFlow, and build intelligent applications.</p>
+                        <div style="margin-top: 1rem;">
+                            <strong style="color: #27ae60; font-size: 1.3rem;">₹1,299</strong>
+                            <button class="btn btn-primary btn-small" onclick="enrollCourse('Machine Learning', 1299)" style="float: right;">Enroll Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Data Science Course -->
+                <div class="course-card" data-category="ai" data-difficulty="advanced" data-price="999">
+                    <div class="card-image">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <div class="card-body">
+                        <h3>Data Science Fundamentals</h3>
+                        <div class="card-meta">
+                            <span class="badge advanced">Advanced</span>
+                            <span class="badge">Data</span>
+                        </div>
+                        <p>Data analysis, visualization, statistical modeling with Python & Pandas.</p>
+                        <div style="margin-top: 1rem;">
+                            <strong style="color: #27ae60; font-size: 1.3rem;">₹999</strong>
+                            <button class="btn btn-primary btn-small" onclick="enrollCourse('Data Science', 999)" style="float: right;">Enroll Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination" style="text-align: center; margin-top: 3rem;"></div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>CodeLearn</h4>
+                    <p>Empowering the next generation of programmers worldwide.</p>
+                    <div class="social-icons">
+                        <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
+                        <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" title="GitHub"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="courses.html">Courses</a></li>
+                        <li><a href="tutorials.html">Tutorials</a></li>
+                        <li><a href="notes.html">Notes</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="contact.html">Support</a></li>
+                        <li><a href="#">Community</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Refund Policy</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 CodeLearn. All rights reserved. | Built with ❤️ for learners</p>
+            </div>
+        </div>
+    </footer>
+
+
+    <script src="script.js"></script>
+    <script>
+  const user = localStorage.getItem("user");
+
+  const navMenu = document.getElementById("navMenu");
+  const loginBtn = document.querySelector(".btn-login");
+
+  if (user) {
+    // Change Login → Profile
+    if (loginBtn) {
+      loginBtn.textContent = user;
+      loginBtn.href = "profile.html";
+    }
+  }
+</script>
+
+</body>
+</html>
